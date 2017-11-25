@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie</title>
+    <script src="/js/jquery-2.1.1.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+</head>
+<body>
+<input type="text" id="isLogin">
+<button type="button" onclick="$.cookie('isLogin', $('#isLogin').val());">Create</button>
+<button type="button" onclick="alert($.cookie('isLogin'));">Read</button>
+</body>
+</html>
