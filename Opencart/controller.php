@@ -94,6 +94,7 @@
  * @property ModelAffiliateAffiliate model_affiliate_affiliate
  *
  * @property ModelReportProductQuantitySituation model_report_product_quantity_situation
+ * @property ModelReportProductPurchasedSupplemented model_report_product_purchased_supplemented
  * @property ModelReportStoreProductQuantity model_report_store_product_quantity
  * @property ModelCatalogLogProduct model_catalog_log_product
  * @property ModelCatalogLogProductStatus model_catalog_log_product_status
