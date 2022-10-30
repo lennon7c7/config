@@ -11,41 +11,43 @@ $output = [];
 exec($shell, $output);
 
 foreach ($output as $filename) {
-    $needle = '.';
-    if (!stristr($filename, $needle)) {
-        continue;
-    }
+  $needle = '.';
+  if (!stristr($filename, $needle)) {
+    continue;
+  }
 
-    $needle = '<DIR>';
-    if (stristr($filename, $needle)) {
-        continue;
-    }
+  $needle = '<DIR>';
+  if (stristr($filename, $needle)) {
+    continue;
+  }
 
-    if (!isMatchFileExt($filename)) {
-        continue;
-    }
+  $filename = filterFilenameKeyword($filename);
 
-    $filename_without_ext = pathinfo($filename, PATHINFO_FILENAME);
-    $filename_ext = pathinfo($filename, PATHINFO_EXTENSION);
-    $mp3 = "{$filename_without_ext}.mp3";
-    if (file_exists($mp3)) {
-        continue;
-    }
+  if (!isMatchFileExt($filename)) {
+    continue;
+  }
 
-    echo $filename . PHP_EOL;
+  $filename_without_ext = pathinfo($filename, PATHINFO_FILENAME);
+  $filename_ext = pathinfo($filename, PATHINFO_EXTENSION);
+  $mp3 = "{$filename_without_ext}.mp3";
+  if (file_exists($mp3)) {
+    continue;
+  }
 
-    $temp_filename = "temp.{$filename_ext}";
-    rename($filename, $temp_filename);
+  echo $filename . PHP_EOL;
 
-    $temp_mp3 = "temp.mp3";
-    $shell = 'D:\ffmpeg\bin\ffmpeg.exe' . " -i {$temp_filename} -vn {$temp_mp3}";
-    $out = [];
-    exec($shell, $out);
+  $temp_filename = "temp.{$filename_ext}";
+  rename($filename, $temp_filename);
 
-    rename($temp_filename, $filename);
-    rename($temp_mp3, $mp3);
+  $temp_mp3 = "temp.mp3";
+  $shell = 'D:\ffmpeg\bin\ffmpeg.exe' . " -i {$temp_filename} -vn {$temp_mp3}";
+  $out = [];
+  exec($shell, $out);
 
-    
+  rename($temp_filename, $filename);
+  rename($temp_mp3, $mp3);
+
+
 }
 
 /**
@@ -54,12 +56,32 @@ foreach ($output as $filename) {
  */
 function isMatchFileExt($filename)
 {
-    $keep_needle = ['.mp4', '.rmvb', '.avi', '.mkv'];
-    foreach ($keep_needle as $ext) {
-        if (stristr($filename, $ext)) {
-            return true;
-        }
+  $keep_needle = ['.mp4', '.rmvb', '.avi', '.mkv'];
+  foreach ($keep_needle as $ext) {
+    if (stristr($filename, $ext)) {
+      return true;
     }
+  }
 
-    return false;
+  return false;
+}
+
+/**
+ * @param string $filename_old
+ * @param string $filename_new
+ */
+function filterFilenameKeyword($filename_old)
+{
+  $filename_new = $filename_old;
+  $filter_keyword = [
+    '[电影天堂-www.dy2018.net]', '[电影天堂www.dy2018.net]', '[电影天堂-www.dy2018.com]', '[电影天堂www.dy2018.com]', '[电影天堂www.dygod.org]',
+    'BD国粤英语中英双字', 'BD国粤英语', 'BD中英双字幕', 'BD中英双字', 'BD中字', '中英双字',
+  ];
+  foreach ($filter_keyword as $keyword) {
+    $filename_new = str_replace($keyword, '', $filename_new);
+  }
+
+  rename($filename_old, $filename_new);
+
+  return $filename_new;
 }
