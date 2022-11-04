@@ -74,8 +74,9 @@ function filterFilenameKeyword($filename_old)
 {
   $filename_new = $filename_old;
   $filter_keyword = [
-    '[电影天堂-www.dy2018.net]', '[电影天堂www.dy2018.net]', '[电影天堂-www.dy2018.com]', '[电影天堂www.dy2018.com]', '[电影天堂www.dygod.org]',
+    '[电影天堂-www.dy2018.net]', '[电影天堂www.dy2018.net]', '[电影天堂-www.dy2018.com]', '[电影天堂www.dy2018.com]', '[电影天堂www.dygod.org]', '[电影天堂www.dygod.cn]', '[电影天堂www.dytt89.com]',
     'BD国粤英语中英双字', 'BD国粤英语', 'BD中英双字幕', 'BD中英双字', 'BD中字', '中英双字',
+    '[.1024分辨率]',
   ];
   foreach ($filter_keyword as $keyword) {
     $filename_new = str_replace($keyword, '', $filename_new);
