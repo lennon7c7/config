@@ -21,11 +21,11 @@ foreach ($output as $filename) {
     continue;
   }
 
-  $filename = filterFilenameKeyword($filename);
-
   if (!isMatchFileExt($filename)) {
     continue;
   }
+
+  $filename = filterFilenameKeyword($filename);
 
   $filename_without_ext = pathinfo($filename, PATHINFO_FILENAME);
   $filename_ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -73,10 +73,12 @@ function isMatchFileExt($filename)
 function filterFilenameKeyword($filename_old)
 {
   $filename_new = $filename_old;
+
+  $filename_new = preg_replace('/\[(.+)\]/', '', $filename_new);
+
   $filter_keyword = [
-    '[电影天堂-www.dy2018.net]', '[电影天堂www.dy2018.net]', '[电影天堂-www.dy2018.com]', '[电影天堂www.dy2018.com]', '[电影天堂www.dygod.org]', '[电影天堂www.dygod.cn]', '[电影天堂www.dytt89.com]',
-    'BD国粤英语中英双字', 'BD国粤英语', 'BD中英双字幕', 'BD中英双字', 'BD中字', '中英双字',
-    '[.1024分辨率]',
+    'BD国粤英语中英双字', 'BD国粤英语', 'BD中英双字幕', 'BD中英双字', 'BD中字',
+    '中英双字幕', '中英双字',
   ];
   foreach ($filter_keyword as $keyword) {
     $filename_new = str_replace($keyword, '', $filename_new);
