@@ -26,6 +26,7 @@ foreach ($output as $filename) {
   }
 
   $filename = filterFilenameKeyword($filename);
+  $filename = filterFilenameSpecialWord($filename);
 
   $filename_without_ext = pathinfo($filename, PATHINFO_FILENAME);
   $filename_ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -68,6 +69,7 @@ function isMatchFileExt($filename)
 }
 
 /**
+ * 文件名过滤关键字
  * @param string $filename_old
  * @param string $filename_new
  */
@@ -85,6 +87,33 @@ function filterFilenameKeyword($filename_old)
   foreach ($filter_keyword as $keyword) {
     $filename_new = str_replace($keyword, '', $filename_new);
   }
+
+  rename($filename_old, $filename_new);
+
+  return $filename_new;
+}
+
+/**
+ * 文件名过滤前后的特殊符号
+ * @param string $filename_old
+ * @param string $filename_new
+ */
+function filterFilenameSpecialWord($filename_old)
+{
+  $filename_new = $filename_old;
+
+  // 过滤前后的特殊符号
+  $filename_without_ext = pathinfo($filename_new, PATHINFO_FILENAME);
+  $filename_ext = pathinfo($filename_new, PATHINFO_EXTENSION);
+
+  $filter_keyword = ['`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=',
+    '/', ' '
+  ];
+  foreach ($filter_keyword as $keyword) {
+    $filename_without_ext = trim($filename_without_ext, $keyword);
+  }
+
+  $filename_new = "{$filename_without_ext}.{$filename_ext}";
 
   rename($filename_old, $filename_new);
 
