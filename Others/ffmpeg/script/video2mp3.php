@@ -107,7 +107,7 @@ function filterFilenameSpecialWord($filename_old)
   $filename_ext = pathinfo($filename_new, PATHINFO_EXTENSION);
 
   $filter_keyword = ['`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=',
-    '/', ' '
+    ',', '<', '.', '>', '/', '?', ' '
   ];
   foreach ($filter_keyword as $keyword) {
     $filename_without_ext = trim($filename_without_ext, $keyword);
