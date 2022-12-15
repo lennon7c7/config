@@ -44,11 +44,11 @@ if [ ! -d "$GitPath" ]; then
   git clone $GitClone
   git config --global user.email "you@example.com"
   git config --global user.name "Your Name"
+  git config --global --add safe.directory $SourcePath
+  git config pull.ff only
 fi
 
 cd "$GitPath"
-git config --global --add safe.directory $SourcePath
-git config pull.ff only
 git checkout .
 
 if [[ "$2" != '' ]]; then
@@ -90,6 +90,9 @@ echo $'debug = true' >> .env
 echo $'' >> .env
 echo $'[payment]' >> .env
 echo $'environment = sandbox' >> .env
+echo $'' >> .env
+echo $'[error_report]' >> .env
+echo $'push_url_exception = IGNORE' >> .env
 
 
 echo ""
@@ -101,9 +104,9 @@ php think migrate:run
 
 
 echo ""
-echo "step5. fix version"
+echo "step5. update version"
 sed -i -e "s/'version' => '[0-9]*.[0-9]*.[0-9]*'/'version' => '${SiteVersion}'/g" "./config/extra/site.php"
 
 
 echo ""
-echo "---------- no shit ----------"
+echo "---------- no shit $(date "+%Y-%m-%d %H:%M:%S") ----------"
