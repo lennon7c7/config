@@ -6,10 +6,15 @@ set -e
 
 echo "---------- 备份数据库，只保留最近7天的 ----------"
 
-
 # install mysqldump if not found
-if [[command -v apk &> /dev/null && ! command -v mysqldump &> /dev/null]]; then
-    apk add mysql-client
+if ! command -v apk &> /dev/null
+then
+    echo "Could not be found. Installing it ..."
+else
+    if ! command -v mysqldump &> /dev/null
+    then
+        apk add mysql-client
+    fi
 fi
 
 
@@ -28,7 +33,7 @@ DB_PORT='3306'
 DB_OUTPUT="${BASE_PATH}/${DATE}.sql"
 
 # 备份数据库
-/usr/bin/mysqldump --default-character-set=utf8mb4 --skip-lock-tables "${DB_NAME}" --result-file="${DB_OUTPUT}" --host="${DB_HOST}" -u"${DB_USER}" -p"${DB_PASSWORD}" --port="${DB_PORT}"
+mysqldump --default-character-set=utf8mb4 --skip-lock-tables "${DB_NAME}" --result-file="${DB_OUTPUT}" --host="${DB_HOST}" -u"${DB_USER}" -p"${DB_PASSWORD}" --port="${DB_PORT}"
 
 echo ""
 echo "---------- no shit ----------"
