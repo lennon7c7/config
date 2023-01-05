@@ -35,20 +35,40 @@ foreach ($output as $filename) {
     continue;
   }
 
-  echo $filename . PHP_EOL;
-
   $temp_filename = "temp.{$filename_ext}";
   rename($filename, $temp_filename);
 
-  $temp_mp3 = "temp.mp3";
-  $shell = 'D:\ffmpeg\bin\ffmpeg.exe' . " -i {$temp_filename} -vn {$temp_mp3}";
+  $shell = 'D:\ffmpeg\bin\ffprobe.exe' . " {$temp_filename} -print_format json -show_streams -select_streams a -hide_banner -v quiet";
   $out = [];
   exec($shell, $out);
+  $out_json = implode('', $out);
+  $out_array = json_decode($out_json, true);
+  if (!empty($out_array['streams']) && count($out_array['streams']) > 1) {
+    // output all audio if exist
+    foreach ($out_array['streams'] as $value) {
+      $temp_mp3 = "temp-audio-map{$value['index']}.mp3";
+      $mp3 = $filename_without_ext . "-audio-{$value['index']}.mp3";
+      if (!isset($value['index']) || empty($value['codec_type']) || $value['codec_type'] != 'audio' || file_exists($mp3)) {
+        continue;
+      }
+
+      $shell = 'D:\ffmpeg\bin\ffmpeg.exe' . " -i {$temp_filename} -map 0:{$value['index']} -f mp3 -vn {$temp_mp3}";
+      $out = [];
+      exec($shell, $out);
+
+      rename($temp_mp3, $mp3);
+    }
+  } else {
+    // output default audio
+    $temp_mp3 = "temp.mp3";
+    $shell = 'D:\ffmpeg\bin\ffmpeg.exe' . " -i {$temp_filename} -vn {$temp_mp3}";
+    $out = [];
+    exec($shell, $out);
+
+    rename($temp_mp3, $mp3);
+  }
 
   rename($temp_filename, $filename);
-  rename($temp_mp3, $mp3);
-
-
 }
 
 /**
