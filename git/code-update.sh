@@ -107,6 +107,7 @@ if [[ "$*" != *"no-debug"* ]]; then
   echo $'environment = sandbox' >> .env
   echo $'' >> .env
   echo $'[error_report]' >> .env
+  echo $'push_url_order = IGNORE' >> .env
   echo $'push_url_exception = IGNORE' >> .env
 fi
 
