@@ -5,22 +5,33 @@
  */
 set_time_limit(0);
 
-// 只显示文件名
-$shell = "dir /b";
-$output = [];
-exec($shell, $output);
+$files = [];
+if (!empty($argv[1])) {
+  // 以参数的方式转
+  $files[] = $argv[1];
+} else {
+  // 以当前目录的方式转
+  $shell = "dir /b";
+  $output = [];
+  exec($shell, $output);
 
-foreach ($output as $filename) {
-  $needle = '.';
-  if (!stristr($filename, $needle)) {
-    continue;
+  foreach ($output as $filename) {
+    $needle = '.';
+    if (!stristr($filename, $needle)) {
+      continue;
+    }
+
+    $needle = /** @lang text */
+      '<DIR>';
+    if (stristr($filename, $needle)) {
+      continue;
+    }
+
+    $files[] = $filename;
   }
+}
 
-  $needle = '<DIR>';
-  if (stristr($filename, $needle)) {
-    continue;
-  }
-
+foreach ($files as $filename) {
   if (!isMatchFileExt($filename)) {
     continue;
   }
@@ -97,7 +108,7 @@ function filterFilenameKeyword($filename_old)
 {
   $filename_new = $filename_old;
 
-  $filename_new = preg_replace('/\[(.+)\]/', '', $filename_new);
+  $filename_new = preg_replace('/\[(.+)]/', '', $filename_new);
 
   $filter_keyword = [
     'DVD', '修复版',
