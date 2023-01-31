@@ -5,6 +5,8 @@
  */
 set_time_limit(0);
 
+$ffmpeg = 'D:\ffmpeg\bin\ffmpeg.exe';
+$music_input = '..\mp3\5s.mp3';
 $files = [];
 if (!empty($argv[1])) {
   // 以参数的方式转
@@ -79,17 +81,14 @@ foreach ($file_list as $filename) {
 
 
 list($max_width, $max_height) = getPCRectangle($file_list);
-$output = "output-{$max_width}x$max_height.mp4";
+$video_output = "output-{$max_width}x$max_height.mp4";
 // scale把原图修改下分辨率，缺少的地方不剪切不拉伸而是加黑边，再把所有处理后的图片二次处理成视频
-$shell = 'D:\ffmpeg\bin\ffmpeg.exe -framerate 1/1 -start_number 1 -i "temp-%1d.jpg" -c:v libx264 -r 30 -vf "scale=' . $max_width . ':' . $max_height . ':force_original_aspect_ratio=decrease,pad=' . $max_width . ':' . $max_height . ':(ow-iw)/2:(oh-ih)/2" -qscale 1 ' . $output . ' -y';
+$shell = "$ffmpeg -framerate 1/1 -start_number 1 -i temp-%1d.jpg -c:v libx264 -r 30 -vf \"scale=" . $max_width . ':' . $max_height . ':force_original_aspect_ratio=decrease,pad=' . $max_width . ':' . $max_height . ':(ow-iw)/2:(oh-ih)/2" -qscale 1 ' . $video_output . ' -y';
 $out = [];
 exec($shell, $out);
 
-
-list($max_width, $max_height) = getPhoneRectangle($file_list);
-$output = "output-{$max_width}x$max_height.mp4";
-// scale把原图修改下分辨率，缺少的地方不剪切不拉伸而是加黑边，再把所有处理后的图片二次处理成视频
-$shell = 'D:\ffmpeg\bin\ffmpeg.exe -framerate 1/1 -start_number 1 -i "temp-%1d.jpg" -c:v libx264 -r 30 -vf "scale=' . $max_width . ':' . $max_height . ':force_original_aspect_ratio=decrease,pad=' . $max_width . ':' . $max_height . ':(ow-iw)/2:(oh-ih)/2" -qscale 1 ' . $output . ' -y';
+$music_output = "music-$video_output";
+$shell = "$ffmpeg -i $video_output -stream_loop -1 -i $music_input -shortest -map 0:v:0 -map 1:a:0 -c:v copy $music_output -y";
 $out = [];
 exec($shell, $out);
 
@@ -254,7 +253,7 @@ function getPCRectangle($file_list)
   } elseif ($width < $mix_width || $height < $mix_height) {
     return [$mix_width, $mix_height];
   } else {
-    $height = bcmul(bcdiv($width, $mix_height), $mix_width);
+    $height = bcmul(bcdiv($width, $mix_width), $mix_height);
     return [$width, $height];
   }
 }
