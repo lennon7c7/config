@@ -45,7 +45,7 @@ foreach ($filename_array as $filename => $value) {
   }
   $concat_param_string = 'concat:' . implode('|', $concat_param_string);
 
-  $shell = 'D:\ffmpeg\bin\ffmpeg.exe' . " -i \"{$concat_param_string}\" -acodec copy {$output_mp3}";
+  $shell = 'ffmpeg' . " -i \"{$concat_param_string}\" -acodec copy {$output_mp3}";
   $out = [];
   exec($shell, $out);
 }

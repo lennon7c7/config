@@ -42,7 +42,7 @@ foreach ($output as $filename) {
   rename($filename, $temp_filename);
 
   $temp_mp3 = "temp.mp3";
-  $shell = 'D:\ffmpeg\bin\ffmpeg.exe' . " -i {$temp_filename} -map 0:2 -f mp3 -vn {$temp_mp3}";
+  $shell = 'ffmpeg' . " -i {$temp_filename} -map 0:2 -f mp3 -vn {$temp_mp3}";
   $out = [];
   exec($shell, $out);
 
