@@ -38,7 +38,7 @@ if (empty($temp_file)) {
 
 $file_list = [];
 foreach ($temp_file as $key => $filename) {
-  $index = $key + 1;
+  $index = date('Ymd') . '-' . ($key + 1);
   $filename_without_ext = pathinfo($filename, PATHINFO_FILENAME);
   $filename_ext = pathinfo($filename, PATHINFO_EXTENSION);
   $temp_filename = "temp-$index.$filename_ext";
@@ -153,6 +153,84 @@ function resizeImage($filename, $dst_width, $dst_height)
   imagecopyresized($dst_image, $src_image, 0, 0, 0, 0, $dst_width, $dst_height, $src_width, $src_height);
 
   imagejpeg($dst_image, $filename, 100);
+}
+
+/**
+ * 删除顶部带水印的X轴部分
+ * @param string $filename 文件名
+ * @param int $watermark_px 水印高度
+ * @return void
+ */
+function deleteTopWatermarkImage($filename, $watermark_px)
+{
+  $ext = explode('.', $filename);
+  $ext = $ext[count($ext) - 1];
+
+  if ($ext == 'jpg' || $ext == 'jpeg') {
+    $src_image = imagecreatefromjpeg($filename);
+  } elseif ($ext == 'gif') {
+    $src_image = imagecreatefromgif($filename);
+  } elseif ($ext == 'png') {
+    $src_image = imagecreatefrompng($filename);
+  } elseif ($ext == 'bmp') {
+    $src_image = imagecreatefrombmp($filename);
+  } elseif ($ext == 'webp') {
+    $src_image = imagecreatefromwebp($filename);
+  }
+
+  if (empty($src_image)) {
+    return;
+  }
+
+  $src_width = imagesx($src_image);
+  $src_height = imagesy($src_image);
+
+  $dst_width = $src_width - $watermark_px;
+  $dst_height = $src_height - $watermark_px;
+
+  $dst_image = imagecreatetruecolor($dst_width, $dst_height);
+  imagecopyresized($dst_image, $src_image, 0, 0, $watermark_px, $watermark_px, $src_width, $src_height, $src_width, $src_height);
+
+  imagejpeg($dst_image, __FUNCTION__ . "-$filename", 100);
+}
+
+/**
+ * 删除底部带水印的X轴部分
+ * @param string $filename 文件名
+ * @param int $watermark_px 水印高度
+ * @return void
+ */
+function deleteBottomWatermarkImage($filename, $watermark_px)
+{
+  $ext = explode('.', $filename);
+  $ext = $ext[count($ext) - 1];
+
+  if ($ext == 'jpg' || $ext == 'jpeg') {
+    $src_image = imagecreatefromjpeg($filename);
+  } elseif ($ext == 'gif') {
+    $src_image = imagecreatefromgif($filename);
+  } elseif ($ext == 'png') {
+    $src_image = imagecreatefrompng($filename);
+  } elseif ($ext == 'bmp') {
+    $src_image = imagecreatefrombmp($filename);
+  } elseif ($ext == 'webp') {
+    $src_image = imagecreatefromwebp($filename);
+  }
+
+  if (empty($src_image)) {
+    return;
+  }
+
+  $src_width = imagesx($src_image);
+  $src_height = imagesy($src_image);
+
+  $dst_width = $src_width - $watermark_px;
+  $dst_height = $src_height - $watermark_px;
+
+  $dst_image = imagecreatetruecolor($dst_width, $dst_height);
+  imagecopyresized($dst_image, $src_image, 0, 0, 0, 0, $src_width, $src_height, $src_width, $src_height);
+
+  imagejpeg($dst_image, __FUNCTION__ . "-$filename", 100);
 }
 
 /**
