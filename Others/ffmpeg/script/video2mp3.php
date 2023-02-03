@@ -49,7 +49,7 @@ foreach ($files as $filename) {
   $temp_filename = "temp.{$filename_ext}";
   rename($filename, $temp_filename);
 
-  $shell = 'D:\ffmpeg\bin\ffprobe.exe' . " {$temp_filename} -print_format json -show_streams -select_streams a -hide_banner -v quiet";
+  $shell = 'ffprobe' . " {$temp_filename} -print_format json -show_streams -select_streams a -hide_banner -v quiet";
   $out = [];
   exec($shell, $out);
   $out_json = implode('', $out);

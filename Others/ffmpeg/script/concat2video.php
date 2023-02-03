@@ -34,7 +34,7 @@ $data = implode("\n", $filename_array);
 file_put_contents($txt_list, $data);
 
 $output = 'output.mp4';
-$shell = "D:\\ffmpeg\bin\\ffmpeg.exe -f concat -safe 0 -i {$txt_list} -c copy {$output}";
+$shell = "ffmpeg -f concat -safe 0 -i {$txt_list} -c copy {$output}";
 $out = [];
 exec($shell, $out);
 
