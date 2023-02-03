@@ -114,6 +114,7 @@ function filterFilenameKeyword($filename_old)
     'DVD', '修复版',
     'BD国粤英语中英双字', 'BD国粤英语', 'BD中英双字幕', 'BD国英双语双字', 'BD国英双语', 'BD中英双字', 'BD中字',
     '国英双语中英', '国英双语', '中英双字幕', '中英双字',
+    '.720p', '720p', '.1080p', '1080p', '.1080i', '1080i',
   ];
   foreach ($filter_keyword as $keyword) {
     $filename_new = str_replace($keyword, '', $filename_new);
