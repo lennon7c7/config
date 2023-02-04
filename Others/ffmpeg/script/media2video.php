@@ -6,7 +6,18 @@
 set_time_limit(0);
 
 $ffmpeg = 'ffmpeg';
-$video_path = '../../video/';
+$video_path = '../../../video/';
+$video_path .= basename(getcwd()) . '/';
+if (!is_dir($video_path)) {
+  $res = mkdir($video_path, 0777, true);
+  if (!$res) {
+    echo "mkdir $video_path error" . PHP_EOL;
+    return;
+  }
+}
+
+
+
 $music_input = '../../audio/28s.mp3';
 $files = [];
 if (!empty($argv[1])) {
@@ -35,13 +46,10 @@ if (empty($temp_file)) {
   return;
 }
 
-
+$input_img_template = 'temp-' . date('Ymd') . '-%1d.jpg';
 $file_list = [];
 foreach ($temp_file as $key => $filename) {
-  $index = date('Ymd') . '-' . ($key + 1);
-  $filename_without_ext = pathinfo($filename, PATHINFO_FILENAME);
-  $filename_ext = pathinfo($filename, PATHINFO_EXTENSION);
-  $temp_filename = "temp-$index.$filename_ext";
+  $temp_filename = str_replace('%1d', $key + 1, $input_img_template);;
 
   list($width, $height, $type, $attr) = getimagesize($filename);
 
@@ -81,19 +89,21 @@ foreach ($file_list as $filename) {
 }
 
 
+
 list($max_width, $max_height) = getPCRectangle($file_list);
 $video_output = $video_path . basename(getcwd()) . date('-Ymd') . "-{$max_width}x$max_height.mp4";
 // -framerate 1/2 每张图显示2s
 // -r 30 30帧/秒
 // scale 把原图修改下分辨率，缺少的地方不剪切不拉伸而是加黑边，再把所有处理后的图片二次处理成视频
-$shell = "$ffmpeg -framerate 1/2 -start_number 1 -i temp-%1d.jpg -c:v libx264 -r 30 -vf \"scale=" . $max_width . ':' . $max_height . ':force_original_aspect_ratio=decrease,pad=' . $max_width . ':' . $max_height . ':(ow-iw)/2:(oh-ih)/2" -qscale 1 ' . $video_output . ' -y';
+$shell = "$ffmpeg -framerate 1/2 -start_number 1 -i $input_img_template -c:v libx264 -r 30 -vf \"scale=" . $max_width . ':' . $max_height . ':force_original_aspect_ratio=decrease,pad=' . $max_width . ':' . $max_height . ':(ow-iw)/2:(oh-ih)/2" -qscale 1 "' . $video_output . '" -y';
 $out = [];
+echo $shell . PHP_EOL;
 exec($shell, $out);
 
-$music_output = $video_path . basename(getcwd()) . date('-Ymd') . "-music.mp4";
-$shell = "$ffmpeg -i $video_output -stream_loop -1 -i $music_input -shortest -map 0:v:0 -map 1:a:0 -c:v copy $music_output -y";
-$out = [];
-exec($shell, $out);
+//$music_output = $video_path . basename(getcwd()) . date('-Ymd') . "-music.mp4";
+//$shell = "$ffmpeg -i $video_output -stream_loop -1 -i $music_input -shortest -map 0:v:0 -map 1:a:0 -c:v copy $music_output -y";
+//$out = [];
+//exec($shell, $out);
 
 
 foreach ($file_list as $filename) {
