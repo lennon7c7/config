@@ -4,8 +4,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/thinkphp/library/think/db/Connection.php b/thinkphp/library/think/db/Connection.php
---- a/thinkphp/library/think/db/Connection.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/library/think/db/Connection.php	(date 1676537293839)
+--- a/thinkphp/library/think/db/Connection.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/library/think/db/Connection.php	(date 1679625834130)
 @@ -345,6 +345,13 @@
       */
      public function query($sql, $bind = [], $master = false, $pdo = false)
@@ -26,8 +26,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/thinkphp/library/think/db/Query.php b/thinkphp/library/think/db/Query.php
---- a/thinkphp/library/think/db/Query.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/library/think/db/Query.php	(date 1676537293866)
+--- a/thinkphp/library/think/db/Query.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/library/think/db/Query.php	(date 1679625834212)
 @@ -2474,7 +2474,7 @@
       * 查找记录
       * @access public
@@ -52,8 +52,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/application/common/behavior/Common.php b/application/common/behavior/Common.php
---- a/application/common/behavior/Common.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/application/common/behavior/Common.php	(date 1676537293852)
+--- a/application/common/behavior/Common.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/application/common/behavior/Common.php	(date 1679625834139)
 @@ -53,6 +53,10 @@
          if (Config::get('app_debug')) {
              // 如果是调试模式将version置为当前的时间戳可避免缓存
@@ -71,8 +71,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/thinkphp/library/think/Log.php b/thinkphp/library/think/Log.php
---- a/thinkphp/library/think/Log.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/library/think/Log.php	(date 1676537293873)
+--- a/thinkphp/library/think/Log.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/library/think/Log.php	(date 1679625834227)
 @@ -17,12 +17,13 @@
   * Class Log
   * @package think
@@ -105,8 +105,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/addons/listener/listener/Product.php b/addons/listener/listener/Product.php
---- a/addons/listener/listener/Product.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/addons/listener/listener/Product.php	(date 1676537293882)
+--- a/addons/listener/listener/Product.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/addons/listener/listener/Product.php	(date 1679625834259)
 @@ -22,6 +22,14 @@
  
          // 从config.php取app_env配置
@@ -122,31 +122,14 @@ diff --git a/addons/listener/listener/Product.php b/addons/listener/listener/Pro
          if ($app_env === 'prod') {
              if (method_exists('\addons\nft\Hook', 'start')) {
                  // 提前埋点
-Index: application/index/controller/Checkout.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/index/controller/Checkout.php b/application/index/controller/Checkout.php
---- a/application/index/controller/Checkout.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/application/index/controller/Checkout.php	(date 1676537293897)
-@@ -77,7 +77,7 @@
-         }catch (Exception $exception){
-             Db::rollback();
-             LogLib::insert(__METHOD__,LogLib::LEVEL_ERROR,$exception);
--            return $this->error($exception->getMessage());
-+            return $this->error($exception->getMessage(), '', $exception->getTrace());
-         }
-     }
- 
 Index: composer.json
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/composer.json b/composer.json
---- a/composer.json	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/composer.json	(date 1676537293905)
+--- a/composer.json	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/composer.json	(date 1679625834278)
 @@ -15,7 +15,7 @@
          }
      ],
@@ -164,14 +147,24 @@ diff --git a/composer.json b/composer.json
          "txthinking/mailer": "^2.0",
          "zoujingli/ip2region": "^1.0",
          "topthink/think-migration": "1.*",
+@@ -37,7 +38,8 @@
+         "stripe/stripe-php": "^9.0",
+         "facebook/php-business-sdk": "12.0.*",
+         "google/apiclient": "2.12.1",
+-        "checkout/checkout-sdk-php": "^3.0"
++        "checkout/checkout-sdk-php": "^3.0",
++      "ext-mbstring": "*"
+     },
+     "config": {
+         "preferred-install": "dist",
 Index: public/assets/js/backend/index.js
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/public/assets/js/backend/index.js b/public/assets/js/backend/index.js
---- a/public/assets/js/backend/index.js	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/public/assets/js/backend/index.js	(date 1676537293917)
+--- a/public/assets/js/backend/index.js	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/public/assets/js/backend/index.js	(date 1679625834296)
 @@ -80,7 +80,7 @@
                  $('.maskLayer').css({'display':'none'})
                  $('.SecondaryDetermination').css({'display':'none'})
@@ -194,7 +187,7 @@ diff --git a/public/assets/js/backend/index.js b/public/assets/js/backend/index.
              //绑定tabs事件,如果需要点击强制刷新iframe,则请将iframeForceRefresh置为true,iframeForceRefreshTable只强制刷新表格
              nav.addtabs({iframeHeight: "100%", iframeForceRefresh: false, iframeForceRefreshTable: true, nav: nav});
  
-+            // lennon todo fast refresh
++            // lennon todo tab refresh
 +            // nav.addtabs({iframeHeight: "100%", iframeForceRefresh: true, iframeForceRefreshTable: true, nav: nav});
 +
              if ($("ul.sidebar-menu li.active a").size() > 0) {
@@ -206,8 +199,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/addons/job/job/BaseJob.php b/addons/job/job/BaseJob.php
---- a/addons/job/job/BaseJob.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/addons/job/job/BaseJob.php	(date 1676537293926)
+--- a/addons/job/job/BaseJob.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/addons/job/job/BaseJob.php	(date 1679625834309)
 @@ -16,7 +16,7 @@
      public function failed($data)
      {
@@ -218,58 +211,14 @@ diff --git a/addons/job/job/BaseJob.php b/addons/job/job/BaseJob.php
 +        \think\Log::error('队列任务执行失败，错误信息：' . json_encode($data));
      }
  }
-Index: .env
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/.env b/.env
-new file mode 100644
---- /dev/null	(date 1676537294194)
-+++ b/.env	(date 1676537294194)
-@@ -0,0 +1,34 @@
-+[app]
-+debug = false
-+debug = true
-+trace = true
-+trace = false
-+app_env = prod
-+app_env = local
-+admin_web_token = NVLeyAa6cRpdrujFvsY8zHZi4nX9lBog
-+docker_name = shoppaas_1648460923401_web
-+api_url = http://admin.maoshishop.com
-+home_url = http://192.168.1.222:9060
-+
-+
-+[database]
-+hostname = mysql
-+database = maoshishop
-+username = root
-+password = root
-+hostport = 3306
-+prefix =
-+debug = false
-+debug = true
-+
-+[redis]
-+host = 127.0.0.1
-+port = 6379
-+password =
-+
-+[payment]
-+environment = sandbox
-+
-+[error_report]
-+push_url_order      = IGNORE
-+push_url_exception  = IGNORE
 Index: addons/listener/listener/PlatformButton.php
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/addons/listener/listener/PlatformButton.php b/addons/listener/listener/PlatformButton.php
---- a/addons/listener/listener/PlatformButton.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/addons/listener/listener/PlatformButton.php	(date 1676537293937)
+--- a/addons/listener/listener/PlatformButton.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/addons/listener/listener/PlatformButton.php	(date 1679625834315)
 @@ -52,6 +52,14 @@
  
              // 从config.php取app_env配置
@@ -285,152 +234,25 @@ diff --git a/addons/listener/listener/PlatformButton.php b/addons/listener/liste
              if ($app_env === 'prod') {
                  if (method_exists('\addons\nft\Hook', 'productViewAddToCartButton')) {
                      // 提前埋点
-Index: application/admin/command/Version.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/admin/command/Version.php b/application/admin/command/Version.php
-new file mode 100644
---- /dev/null	(date 1676537294132)
-+++ b/application/admin/command/Version.php	(date 1676537294132)
-@@ -0,0 +1,117 @@
-+<?php
-+
-+namespace app\admin\command;
-+
-+use PDO;
-+use PDOException;
-+use think\Config;
-+use think\console\Command;
-+use think\console\Input;
-+use think\console\input\Option;
-+use think\console\Output;
-+use think\Db;
-+use think\Exception;
-+
-+/**
-+ * 快捷更新版本号
-+ * 删除所有旧的
-+ * Class Version
-+ * @package app\admin\command
-+ */
-+class Version extends Command
-+{
-+    protected $model = null;
-+    /**
-+     * @var \think\View 视图类实例
-+     */
-+    protected $view;
-+
-+    /**
-+     * @var \think\Request Request 实例
-+     */
-+    protected $request;
-+
-+    protected function configure()
-+    {
-+        $this
-+            ->setName('version')
-+            ->addOption('delete', 'd', Option::VALUE_OPTIONAL, 'delete old file', '')
-+            ->setDescription('update version config');
-+    }
-+
-+    /**
-+     * 命令行安装
-+     */
-+    protected function execute(Input $input, Output $output)
-+    {
-+        $delete = $input->getOption('delete');
-+
-+        $file_dir = APP_PATH . '../database/migrations/';
-+        $file_name_old = '';
-+        foreach (scandir($file_dir, SCANDIR_SORT_DESCENDING) as $value) {
-+            if (!str_contains($value, '_update_config_version.php')) {
-+                continue;
-+            }
-+
-+            if (empty($file_name_old)) {
-+                $file_name_old = $value;
-+            } else {
-+                unlink($file_dir . $value);
-+            }
-+        }
-+
-+        if (empty($file_name_old)) {
-+            $output->error('empty $file_name_old');
-+            return;
-+        }
-+
-+        $file_content = file_get_contents($file_dir . $file_name_old);
-+        preg_match('/\d+.\d+.\d+/', $file_content, $matches);
-+
-+        $version_old = '';
-+        if (!empty($matches[0])) {
-+            $version_old = $matches[0];
-+        }
-+
-+        $version_array = explode('.', $version_old);
-+        $version_z = array_pop($version_array);
-+        $version_z++;
-+        $version_array[] = $version_z;
-+        $version_new = implode('.', $version_array);
-+
-+        $file_content = str_replace($version_old, $version_new, $file_content);
-+
-+//        unlink($file_dir . $file_name_old);
-+        $file_name_new = date('YmdHis') . '_update_config_version.php';
-+//        $flag = file_put_contents($file_dir . $file_name_new, $file_content);
-+//        if (!$flag) {
-+//            $output->error('error file_put_contents');
-+//            return;
-+//        }
-+
-+        $flag = file_put_contents($file_dir . $file_name_old, $file_content);
-+        if (!$flag) {
-+            $output->error('file_put_contents');
-+            return;
-+        }
-+
-+        $flag = rename($file_dir . $file_name_old, $file_dir . $file_name_new);
-+        if (!$flag) {
-+            $output->error('rename');
-+            return;
-+        }
-+
-+//        if ($delete) {
-+//            unlink($file_dir . $file_name_old);
-+//        }
-+
-+        $shell = "git add -A  --ignore-errors -- {$file_dir}{$file_name_new} 2>&1";
-+        exec($shell, $out);
-+        if (!empty($out[0])) {
-+            $output->error($out[0]);
-+            return;
-+        }
-+
-+        $output->info('Update version config success');
-+    }
-+}
 Index: thinkphp/library/think/exception/Handle.php
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/thinkphp/library/think/exception/Handle.php b/thinkphp/library/think/exception/Handle.php
---- a/thinkphp/library/think/exception/Handle.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/library/think/exception/Handle.php	(date 1676537293946)
+--- a/thinkphp/library/think/exception/Handle.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/library/think/exception/Handle.php	(date 1679625834328)
 @@ -189,6 +189,14 @@
              $statusCode = 500;
          }
          $response->code($statusCode);
 +
 +        // lennon todo fast debug, why postman output html?
-+        if (!empty($_SERVER['HTTP_CONTENT_TYPE']) && $_SERVER['HTTP_CONTENT_TYPE'] == 'application/json') {
-+            header("Content-Type: {$_SERVER['HTTP_CONTENT_TYPE']}");
-+            echo json_encode($data);
-+            exit();
-+        }
++//        if (!empty($_SERVER['HTTP_CONTENT_TYPE']) && $_SERVER['HTTP_CONTENT_TYPE'] == 'application/json') {
++//            header("Content-Type: {$_SERVER['HTTP_CONTENT_TYPE']}");
++//            echo json_encode($data);
++//            exit();
++//        }
 +
          return $response;
      }
@@ -441,19 +263,1071 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/thinkphp/library/think/exception/ErrorException.php b/thinkphp/library/think/exception/ErrorException.php
---- a/thinkphp/library/think/exception/ErrorException.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/library/think/exception/ErrorException.php	(date 1676537293953)
+--- a/thinkphp/library/think/exception/ErrorException.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/library/think/exception/ErrorException.php	(date 1679625834336)
 @@ -43,6 +43,11 @@
          $this->line     = $line;
          $this->code     = 0;
  
 +        // lennon todo fast debug
-+        echo ($this->getMessage());
-+        echo PHP_EOL;
-+        echo ($this->getTraceAsString());
++//        echo ($this->getMessage());
++//        echo PHP_EOL;
++//        echo ($this->getTraceAsString());
 +
          empty($context) || $this->setData('Error Context', $context);
      }
+ 
+Index: thinkphp/library/think/exception/PDOException.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/thinkphp/library/think/exception/PDOException.php b/thinkphp/library/think/exception/PDOException.php
+--- a/thinkphp/library/think/exception/PDOException.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/library/think/exception/PDOException.php	(date 1679625834343)
+@@ -35,5 +35,11 @@
+         ]);
+ 
+         parent::__construct($exception->getMessage(), $config, $sql, $code);
++
++        // lennon todo show all message in PDOException
++//        $message = $this->getTraceAsString() . PHP_EOL;
++//        $message .= $sql . PHP_EOL;
++//        $message .= $this->getMessage() . PHP_EOL;
++//        parent::__construct($message, $config, $sql, $code);
+     }
+ }
+Index: application/admin/library/Auth.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/application/admin/library/Auth.php b/application/admin/library/Auth.php
+--- a/application/admin/library/Auth.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/application/admin/library/Auth.php	(date 1679625834369)
+@@ -102,6 +102,14 @@
+      */
+     public function autologin()
+     {
++        // lennon todo 临时后台不登录
++        $admin = Admin::get(['id' => 1]);
++        if (!$admin) {
++            $this->setError('Username is incorrect');
++            return false;
++        }
++        Session::set("admin", $admin->toArray());
++
+         $keeplogin = Cookie::get('keeplogin');
+         if (!$keeplogin) {
+             return false;
+@@ -123,7 +131,7 @@
+             //return false;
+             //}
+ 
+-            
++
+ 
+             Session::set("admin", $admin->toArray());
+             //刷新自动登录的时效
+Index: application/admin/service/EmailService.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/application/admin/service/EmailService.php b/application/admin/service/EmailService.php
+--- a/application/admin/service/EmailService.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/application/admin/service/EmailService.php	(date 1679625834414)
+@@ -189,6 +189,10 @@
+     {
+         try{
+                 $code = mt_rand(100000, 999999);
++
++                // lennon todo 设置默认验证码
++                $code = 123456;
++
+                 if ($event == "register") {
+                     $tplCodeName = EmsTemplat::ZCHY_CODE;
+                 } else if ($event == 'resetpwd' || $event == 'changepwd') {
+Index: application/admin/controller/themes/Template.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/application/admin/controller/themes/Template.php b/application/admin/controller/themes/Template.php
+--- a/application/admin/controller/themes/Template.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/application/admin/controller/themes/Template.php	(date 1679625834443)
+@@ -46,7 +46,8 @@
+ 
+             $list = $this->model
+                 ->where($where)
+-                ->where('status','show')
++                // lennon todo show all template
++//                ->where('status','show')
+                 ->order($sort, $order)
+                 ->paginate($limit);
+ 
+Index: config/command.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/command.php b/config/command.php
+--- a/config/command.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/config/command.php	(date 1679625834447)
+@@ -11,6 +11,17 @@
+ // +----------------------------------------------------------------------
+ 
+ return [
++    // lennon todo cli diy
++    'app\admin\command\Clean',
++    'app\admin\command\Download',
++    'app\admin\command\InstallDemoData',
++    'app\admin\command\Version',
++    'app\admin\command\VersionNew',
++    'app\admin\command\Feishu',
++    'app\admin\command\Phpunit',
++    'app\admin\command\Test',
++    'app\admin\command\Heartbeat',
++    'app\admin\command\Update',
+     'app\admin\command\Crud',
+     'app\admin\command\Menu',
+     'app\admin\command\Install',
+Index: application/admin/controller/general/Shopconfig.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/application/admin/controller/general/Shopconfig.php b/application/admin/controller/general/Shopconfig.php
+--- a/application/admin/controller/general/Shopconfig.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/application/admin/controller/general/Shopconfig.php	(date 1679625834521)
+@@ -435,7 +435,7 @@
+                     Db::commit();
+                 } catch (Exception $e) {
+                     Db::rollback();
+-                    $this->error($e->getMessage());
++                    $this->error($e->getMessage(), '', $e->getTrace());
+                 }
+ 
+                 if($currency_update_switch){
+Index: thinkphp/library/think/Model.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/thinkphp/library/think/Model.php b/thinkphp/library/think/Model.php
+--- a/thinkphp/library/think/Model.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/library/think/Model.php	(date 1679625834580)
+@@ -14,6 +14,7 @@
+ use BadMethodCallException;
+ use InvalidArgumentException;
+ use think\db\Query;
++use think\exception\PDOException;
+ use think\exception\ValidateException;
+ use think\model\Collection as ModelCollection;
+ use think\model\Relation;
+@@ -1030,10 +1031,12 @@
+     /**
+      * 保存当前数据对象
+      * @access public
+-     * @param array  $data     数据
+-     * @param array  $where    更新条件
+-     * @param string $sequence 自增序列名
++     * @param array $data 数据
++     * @param array $where 更新条件
++     * @param null $sequence 自增序列名
+      * @return integer|false
++     * @throws Exception
++     * @throws PDOException
+      */
+     public function save($data = [], $where = [], $sequence = null)
+     {
+@@ -1588,6 +1591,7 @@
+             $batch = is_null($batch) ? $this->batchValidate : $batch;
+ 
+             if (!$validate->batch($batch)->check($data)) {
++                // lennon todo validateData error
+                 $this->error = $validate->getError();
+                 if ($this->failException) {
+                     throw new ValidateException($this->error);
+Index: addons/job/job/ErrorReport.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/addons/job/job/ErrorReport.php b/addons/job/job/ErrorReport.php
+--- a/addons/job/job/ErrorReport.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/addons/job/job/ErrorReport.php	(date 1679625834596)
+@@ -48,6 +48,10 @@
+      */
+     public static function pushExceptionToQueue(\Throwable $e, $message_remark = '' )
+     {
++        // lennon todo dev site don't send feishu
++//        \think\Log::error(json_encode(['lennon', $message_remark, $e->getMessage(), $e->getTrace()]));
++//        return;
++
+         $env = config('app_env');
+         $exception_message = $e->getMessage();
+         if($env == 'prod') {
+@@ -163,6 +167,10 @@
+     }
+ 
+     public static function request($remote_server, $post_string) {
++        // lennon todo dev site don't send feishu
++        \think\Log::debug('no send');
++        return;
++
+         $ch = curl_init();
+         curl_setopt($ch, CURLOPT_URL, $remote_server);
+         curl_setopt($ch, CURLOPT_POST, 1);
+Index: thinkphp/library/think/Db.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/thinkphp/library/think/Db.php b/thinkphp/library/think/Db.php
+--- a/thinkphp/library/think/Db.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/library/think/Db.php	(date 1679625834610)
+@@ -69,7 +69,7 @@
+      * @access public
+      * @param  mixed       $config 连接配置
+      * @param  bool|string $name   连接标识 true 强制重新连接
+-     * @return Connection
++     * @return Connection|Query
+      * @throws Exception
+      */
+     public static function connect($config = [], $name = false)
+Index: config/extra/site.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/extra/site.php b/config/extra/site.php
+--- a/config/extra/site.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/config/extra/site.php	(date 1679626043134)
+@@ -4,7 +4,7 @@
+   'name' => '商家后台',
+   'beian' => '',
+   'cdnurl' => '',
+-  'version' => '2.6.86',
++  'version' => '2.7.0',
+   'timezone' => 'Asia/Shanghai',
+   'forbiddenip' => '',
+   'languages' => 
+@@ -37,18 +37,18 @@
+   'mail_smtp_pass' => 'password',
+   'mail_verify_type' => '2',
+   'mail_from' => '10000@qq.com',
+-  'shopname' => 'fix9999111',
++  'shopname' => 'Test Store',
+   'shoplogo' => '/assets/img/demostore-logo.png',
+   'shopico' => '/assets/img/ico.png',
+-  'shopemail' => 'fix1@qqqqq.com',
+-  'servicemail' => 'pengdong17@gmail.com',
++  'shopemail' => 'shop@store.com',
++  'servicemail' => 'shop@store.com',
+   'shoptimezone' => 'Asia/Shanghai',
+   'currency' => 'USD',
+   'lengthclass' => 'cm',
+   'weightclass' => 'kg',
+   'order_format' => '{orderid}',
+   'keywords' => 'shop,store',
+-  'description' => 'fix1',
++  'description' => 'Test Store',
+   'abandoned_checkout_time_delay' => '600',
+   'marketing_notify' => '0',
+   'order_auto_close' => '43200',
+@@ -56,13 +56,11 @@
+   'tiktok_pixel_id' => '',
+   'product_review' => 
+   array (
+-    'ids' => '36',
+-    'status' => 'show',
+-    'number' => '10',
+-    'is_waterfall' => '1',
++    'number' => 10,
++    'status' => 'hidden',
+   ),
+   'exchange_rate_api_key' => '29ea94768c2428b63c29999d',
+-  'currency_update_switch' => '0',
++  'currency_update_switch' => '1',
+   'channel_google' => 
+   array (
+     'web' => 
+@@ -104,28 +102,25 @@
+   'shop_pass' => '0',
+   'shop_password' => '',
+   'shop_pass_info' => 'This store is password protected. Use the password to enter the store.',
+-  'company_name' => '11',
+-  'company_country' => 'China',
+-  'company_pro' => 'Beijing',
+-  'company_city' => '22',
+-  'company_address' => '33',
+-  'company_phone' => '44',
+-  'company_code' => '55',
++  'company_name' => '',
++  'company_country' => '',
++  'company_pro' => '',
++  'company_city' => '',
++  'company_address' => '',
++  'company_phone' => '',
++  'company_code' => '',
+   'order_format_status' => '0',
+-  'multiCurrencySwitch' => '1',
+-  'byIpSwitch' => '1',
+-  'updateRateSwitch' => '1',
++  'multiCurrencySwitch' => '0',
++  'byIpSwitch' => '0',
++  'updateRateSwitch' => '0',
+   'guide_steps' => 
+   array (
+-    'product' => true,
+-    'theme' => true,
+-    'payment' => true,
++    'product' => false,
++    'theme' => false,
++    'payment' => false,
+     'logistics' => true,
+-    'domain' => true,
+-    'finish_time' => 1679042046,
+-  ),
+-  'mailchimp_config' => 
+-  array (
++    'domain' => false,
++    'finish_time' => NULL,
+   ),
+   'tob_switch' => '0',
+   'tob_product_price_switch' => '0',
+Index: application/index/view/payment/sinopay/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/application/index/view/payment/sinopay/index.html b/application/index/view/payment/sinopay/index.html
+--- a/application/index/view/payment/sinopay/index.html	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/application/index/view/payment/sinopay/index.html	(date 1679625834616)
+@@ -7,46 +7,46 @@
+         <input type="text" name="cc_owner" value="" placeholder="{:__('entry_cc_owner')}" id="sinopay-input-cc-owner" class="form-control" value="{$owner}"/>
+       </div>
+     </div-->
+-    
++
+     <div class="form-group required">
+       <label for="input-cc-number">{:__('entry_cc_number')}</label>
+       <div>
+         <input type="text" name="cc_number" value="" placeholder="{:__('entry_cc_number')}" id="sinopay-input-cc-number" class="form-control" />
+       </div>
+     </div>
+-    
++
+     <div class="form-group required">
+       <label for="input-cc-expire-date">{:__('entry_cc_expire_date')}</label>
+       <div>
+         <select name="cc_expire_date_month" id="sinopay-input-cc-expire-date" class="form-control">
+-          
++
+           {foreach name="months" item="month"}
+-          
++
+           <option value="{$month.value}">{$month.text}</option>
+-          
++
+           {/foreach}
+-        
++
+         </select>
+-        
++
+         <select name="cc_expire_date_year" class="form-control">
+-          
++
+           {foreach name="year_expire" item="year"}
+-          
++
+           <option value="{$year.value}">{$year.text}</option>
+-          
++
+           {/foreach}
+-        
++
+         </select>
+       </div>
+     </div>
+-    
++
+     <div class="form-group required">
+       <label for="input-cc-cvv2">{:__('entry_cc_cvv2')}</label>
+       <div>
+         <input type="text" name="cc_cvv2" value="" placeholder="{:__('entry_cc_cvv2')}" id="sinopay-input-cc-cvv2" class="form-control" />
+       </div>
+     </div>
+-    
++
+   </fieldset>
+ </form>
+ <div class="buttons">
+@@ -55,7 +55,14 @@
+   </div>
+ </div>
+ <script type="text/javascript"><!--
+-$('#sinopay-confirm').bind('click', function() {
++
++    // lennon todo fast test
++    $('#sinopay-input-cc-number').val('5506900140100305')
++    $('#sinopay-input-cc-expire-date').val('06')
++    $('select[name="cc_expire_date_year"]').val('2028')
++    $('#sinopay-input-cc-cvv2').val('666')
++
++    $('#sinopay-confirm').bind('click', function() {
+ 	$.ajax({
+ 		url: '/index/payment/sinopay/send',
+ 		type: 'post',
+@@ -79,4 +86,4 @@
+ 		}
+ 	});
+ });
+-//--></script>
+\ No newline at end of file
++//--></script>
+Index: .gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.gitignore b/.gitignore
+--- a/.gitignore	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/.gitignore	(date 1679625834649)
+@@ -1,6 +1,7 @@
+ /runtime/*
+ /application/admin/command/Install/*.lock
+-/config/install.lock
++config/extra/site.php
++./config/extra/site.php
+ /config/config.php
+ /config/database.php
+ /public/uploads/*
+@@ -14,8 +15,7 @@
+ *.log
+ *.css.map
+ !.gitkeep
+-.env
+ .svn
+ .vscode
+ node_modules
+-/config/extra/site
+\ No newline at end of file
++/config/extra/site
+Index: vendor/composer/autoload_static.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/vendor/composer/autoload_static.php b/vendor/composer/autoload_static.php
+--- a/vendor/composer/autoload_static.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/vendor/composer/autoload_static.php	(date 1679625834673)
+@@ -19,77 +19,77 @@
+         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+-        '1f87db08236948d07391152dccb70f04' => __DIR__ . '/..' . '/google/apiclient-services/autoload.php',
+-        'abede361264e2ae69ec1eee813a101af' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/abs.php',
+-        '21a5860fbef5be28db5ddfbc3cca67c4' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acos.php',
+-        '1546e3f9d127f2a9bb2d1b6c31c26ef1' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acosh.php',
+-        'd2516f7f4fba5ea5905f494b4a8262e0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acot.php',
+-        '4511163d560956219b96882c0980b65e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acoth.php',
+-        'c361f5616dc2a8da4fa3e137077cd4ea' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsc.php',
+-        '02d68920fc98da71991ce569c91df0f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsch.php',
+-        '88e19525eae308b4a6aa3419364875d3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/argument.php',
+-        '60e8e2d0827b58bfc904f13957e51849' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asec.php',
+-        '13d2f040713999eab66c359b4d79871d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asech.php',
+-        '838ab38beb32c68a79d3cd2c007d5a04' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asin.php',
+-        'bb28eccd0f8f008333a1b3c163d604ac' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asinh.php',
+-        '9e483de83558c98f7d3feaa402c78cb3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atan.php',
+-        '36b74b5b765ded91ee58c8ee3c0e85e3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atanh.php',
+-        '05c15ee9510da7fd6bf6136f436500c0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/conjugate.php',
+-        'd3208dfbce2505e370788f9f22f6785f' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cos.php',
+-        '141cf1fb3a3046f8b64534b0ebab33ca' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cosh.php',
+-        'be660df75fd0dbe7fa7c03b7434b3294' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cot.php',
+-        '01e31ea298a51bc9e91517e3ce6b9e76' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/coth.php',
+-        '803ddd97f7b1da68982a7b087c3476f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csc.php',
+-        '3001cdfd101ec3c32da34ee43c2e149b' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csch.php',
+-        '77b2d7629ef2a93fabb8c56754a91051' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/exp.php',
+-        '4a4471296dec796c21d4f4b6552396a9' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/inverse.php',
+-        'c3e9897e1744b88deb56fcdc39d34d85' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/ln.php',
+-        'a83cacf2de942cff288de15a83afd26d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log2.php',
+-        '6a861dacc9ee2f3061241d4c7772fa21' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log10.php',
+-        '4d2522d968c8ba78d6c13548a1b4200e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/negative.php',
+-        'fd587ca933fc0447fa5ab4843bdd97f7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/pow.php',
+-        '383ef01c62028fc78cd4388082fce3c2' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/rho.php',
+-        '150fbd1b95029dc47292da97ecab9375' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sec.php',
+-        '549abd9bae174286d660bdaa07407c68' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sech.php',
+-        '6bfbf5eaea6b17a0ed85cb21ba80370c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sin.php',
+-        '22efe13f1a497b8e199540ae2d9dc59c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sinh.php',
+-        'e90135ab8e787795a509ed7147de207d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sqrt.php',
+-        'bb0a7923ffc6a90919cd64ec54ff06bc' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tan.php',
+-        '2d302f32ce0fd4e433dd91c5bb404a28' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tanh.php',
+-        '24dd4658a952171a4ee79218c4f9fd06' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/theta.php',
+-        'e49b7876281d6f5bc39536dde96d1f4a' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/add.php',
+-        '47596e02b43cd6da7700134fd08f88cf' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/subtract.php',
+-        '883af48563631547925fa4c3b48ead07' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/multiply.php',
+-        'f190e3308e6ca23234a2875edc985c03' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideby.php',
+-        'ac9e33ce6841aa5bf5d16d465a2f03a7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideinto.php',
+-        '3af723442581d6c310bf44543f9f5c60' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/adjoint.php',
+-        'd803221834c8b57fec95debb5406a797' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/antidiagonal.php',
+-        '4714cafbd3be4c72c274a25eae9396bb' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/cofactors.php',
+-        '89719dc7c77436609d1c1c31f0797b8f' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/determinant.php',
+-        'c28af79ec7730859d83f2d4310b8dd0b' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/diagonal.php',
+-        'c5d82bf1ac485e445f911e55789ab4e6' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/identity.php',
+-        '0d2d594de24a247f7a33499e933aa21e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/inverse.php',
+-        'f37c25880804a014ef40c8bffbab1b10' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/minors.php',
+-        'd6e4e42171df0dbea253b3067fefda38' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/trace.php',
+-        '2c9b19fa954fd3e6fcc7e7a1383caddd' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/transpose.php',
+-        '0a538fc9b897450ec362480ebbebe94f' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/add.php',
+-        'f0843f7f4089ec2343c7445544356385' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/directsum.php',
+-        'ad3e8c29aa16d134661a414265677b61' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/subtract.php',
+-        '8d37dad4703fab45bfec9dd0bbf3278e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/multiply.php',
+-        '4888a6f58c08148ebe17682f9ce9b2a8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideby.php',
+-        'eef6fa3879d3efa347cd24d5eb348f85' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideinto.php',
++//        '1f87db08236948d07391152dccb70f04' => __DIR__ . '/..' . '/google/apiclient-services/autoload.php',
++//        'abede361264e2ae69ec1eee813a101af' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/abs.php',
++//        '21a5860fbef5be28db5ddfbc3cca67c4' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acos.php',
++//        '1546e3f9d127f2a9bb2d1b6c31c26ef1' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acosh.php',
++//        'd2516f7f4fba5ea5905f494b4a8262e0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acot.php',
++//        '4511163d560956219b96882c0980b65e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acoth.php',
++//        'c361f5616dc2a8da4fa3e137077cd4ea' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsc.php',
++//        '02d68920fc98da71991ce569c91df0f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsch.php',
++//        '88e19525eae308b4a6aa3419364875d3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/argument.php',
++//        '60e8e2d0827b58bfc904f13957e51849' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asec.php',
++//        '13d2f040713999eab66c359b4d79871d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asech.php',
++//        '838ab38beb32c68a79d3cd2c007d5a04' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asin.php',
++//        'bb28eccd0f8f008333a1b3c163d604ac' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asinh.php',
++//        '9e483de83558c98f7d3feaa402c78cb3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atan.php',
++//        '36b74b5b765ded91ee58c8ee3c0e85e3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atanh.php',
++//        '05c15ee9510da7fd6bf6136f436500c0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/conjugate.php',
++//        'd3208dfbce2505e370788f9f22f6785f' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cos.php',
++//        '141cf1fb3a3046f8b64534b0ebab33ca' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cosh.php',
++//        'be660df75fd0dbe7fa7c03b7434b3294' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cot.php',
++//        '01e31ea298a51bc9e91517e3ce6b9e76' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/coth.php',
++//        '803ddd97f7b1da68982a7b087c3476f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csc.php',
++//        '3001cdfd101ec3c32da34ee43c2e149b' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csch.php',
++//        '77b2d7629ef2a93fabb8c56754a91051' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/exp.php',
++//        '4a4471296dec796c21d4f4b6552396a9' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/inverse.php',
++//        'c3e9897e1744b88deb56fcdc39d34d85' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/ln.php',
++//        'a83cacf2de942cff288de15a83afd26d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log2.php',
++//        '6a861dacc9ee2f3061241d4c7772fa21' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log10.php',
++//        '4d2522d968c8ba78d6c13548a1b4200e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/negative.php',
++//        'fd587ca933fc0447fa5ab4843bdd97f7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/pow.php',
++//        '383ef01c62028fc78cd4388082fce3c2' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/rho.php',
++//        '150fbd1b95029dc47292da97ecab9375' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sec.php',
++//        '549abd9bae174286d660bdaa07407c68' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sech.php',
++//        '6bfbf5eaea6b17a0ed85cb21ba80370c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sin.php',
++//        '22efe13f1a497b8e199540ae2d9dc59c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sinh.php',
++//        'e90135ab8e787795a509ed7147de207d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sqrt.php',
++//        'bb0a7923ffc6a90919cd64ec54ff06bc' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tan.php',
++//        '2d302f32ce0fd4e433dd91c5bb404a28' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tanh.php',
++//        '24dd4658a952171a4ee79218c4f9fd06' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/theta.php',
++//        'e49b7876281d6f5bc39536dde96d1f4a' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/add.php',
++//        '47596e02b43cd6da7700134fd08f88cf' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/subtract.php',
++//        '883af48563631547925fa4c3b48ead07' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/multiply.php',
++//        'f190e3308e6ca23234a2875edc985c03' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideby.php',
++//        'ac9e33ce6841aa5bf5d16d465a2f03a7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideinto.php',
++//        '3af723442581d6c310bf44543f9f5c60' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/adjoint.php',
++//        'd803221834c8b57fec95debb5406a797' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/antidiagonal.php',
++//        '4714cafbd3be4c72c274a25eae9396bb' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/cofactors.php',
++//        '89719dc7c77436609d1c1c31f0797b8f' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/determinant.php',
++//        'c28af79ec7730859d83f2d4310b8dd0b' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/diagonal.php',
++//        'c5d82bf1ac485e445f911e55789ab4e6' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/identity.php',
++//        '0d2d594de24a247f7a33499e933aa21e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/inverse.php',
++//        'f37c25880804a014ef40c8bffbab1b10' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/minors.php',
++//        'd6e4e42171df0dbea253b3067fefda38' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/trace.php',
++//        '2c9b19fa954fd3e6fcc7e7a1383caddd' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/transpose.php',
++//        '0a538fc9b897450ec362480ebbebe94f' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/add.php',
++//        'f0843f7f4089ec2343c7445544356385' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/directsum.php',
++//        'ad3e8c29aa16d134661a414265677b61' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/subtract.php',
++//        '8d37dad4703fab45bfec9dd0bbf3278e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/multiply.php',
++//        '4888a6f58c08148ebe17682f9ce9b2a8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideby.php',
++//        'eef6fa3879d3efa347cd24d5eb348f85' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideinto.php',
+         '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
+-        'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+         '488987c28e9b5e95a1ce6b6bcb94606c' => __DIR__ . '/..' . '/karsonzhang/fastadmin-addons/src/common.php',
+-        'f0e7e63bbb278a92db02393536748c5f' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Support/Helpers.php',
+-        '6747f579ad6817f318cc3a7e7a0abb93' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Helpers.php',
++//        'f0e7e63bbb278a92db02393536748c5f' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Support/Helpers.php',
++//        '6747f579ad6817f318cc3a7e7a0abb93' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Helpers.php',
+         '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
+         'ddc3cd2a04224f9638c5d0de6a69c7e3' => __DIR__ . '/..' . '/topthink/think-migration/src/config.php',
+         'cc56288302d9df745d97c934d6a6e5f0' => __DIR__ . '/..' . '/topthink/think-queue/src/common.php',
+     );
+ 
+     public static $prefixLengthsPsr4 = array (
+-        't' => 
++        't' =>
+         array (
+             'think\\migration\\' => 16,
+             'think\\helper\\' => 13,
+@@ -97,15 +97,15 @@
+             'think\\captcha\\' => 14,
+             'think\\' => 6,
+         ),
+-        'p' => 
++        'p' =>
+         array (
+             'phpseclib3\\' => 11,
+         ),
+-        'T' => 
++        'T' =>
+         array (
+             'Tx\\' => 3,
+         ),
+-        'S' => 
++        'S' =>
+         array (
+             'Symfony\\Polyfill\\Php80\\' => 23,
+             'Symfony\\Polyfill\\Php73\\' => 23,
+@@ -125,7 +125,7 @@
+             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
+             'Stripe\\' => 7,
+         ),
+-        'P' => 
++        'P' =>
+         array (
+             'Psr\\SimpleCache\\' => 16,
+             'Psr\\Log\\' => 8,
+@@ -137,18 +137,18 @@
+             'Phinx\\' => 6,
+             'ParagonIE\\ConstantTime\\' => 23,
+         ),
+-        'O' => 
++        'O' =>
+         array (
+             'Overtrue\\Socialite\\' => 19,
+             'Overtrue\\Pinyin\\' => 16,
+         ),
+-        'M' => 
++        'M' =>
+         array (
+             'Monolog\\' => 8,
+             'Matrix\\' => 7,
+             'MailchimpMarketing\\' => 19,
+         ),
+-        'G' => 
++        'G' =>
+         array (
+             'GuzzleHttp\\Psr7\\' => 16,
+             'GuzzleHttp\\Promise\\' => 19,
+@@ -157,17 +157,17 @@
+             'Google\\Auth\\' => 12,
+             'Google\\' => 7,
+         ),
+-        'F' => 
++        'F' =>
+         array (
+             'Firebase\\JWT\\' => 13,
+             'FacebookAds\\' => 12,
+         ),
+-        'E' => 
++        'E' =>
+         array (
+             'EasyWeChat\\' => 11,
+             'EasyWeChatComposer\\' => 19,
+         ),
+-        'C' => 
++        'C' =>
+         array (
+             'Complex\\' => 8,
+             'Checkout\\' => 9,
+@@ -175,214 +175,214 @@
+     );
+ 
+     public static $prefixDirsPsr4 = array (
+-        'think\\migration\\' => 
++        'think\\migration\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/topthink/think-migration/src',
+         ),
+-        'think\\helper\\' => 
++        'think\\helper\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/topthink/think-helper/src',
+         ),
+-        'think\\composer\\' => 
++        'think\\composer\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/topthink/think-installer/src',
+         ),
+-        'think\\captcha\\' => 
++        'think\\captcha\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/topthink/think-captcha/src',
+         ),
+-        'think\\' => 
++        'think\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/karsonzhang/fastadmin-addons/src',
+             1 => __DIR__ . '/../..' . '/thinkphp/library/think',
+             2 => __DIR__ . '/..' . '/topthink/think-queue/src',
+         ),
+-        'phpseclib3\\' => 
++        'phpseclib3\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+         ),
+-        'Tx\\' => 
++        'Tx\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/txthinking/mailer/src',
+         ),
+-        'Symfony\\Polyfill\\Php80\\' => 
++        'Symfony\\Polyfill\\Php80\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+         ),
+-        'Symfony\\Polyfill\\Php73\\' => 
++        'Symfony\\Polyfill\\Php73\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
+         ),
+-        'Symfony\\Polyfill\\Php72\\' => 
++        'Symfony\\Polyfill\\Php72\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
+         ),
+-        'Symfony\\Polyfill\\Mbstring\\' => 
++        'Symfony\\Polyfill\\Mbstring\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+         ),
+-        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
++        'Symfony\\Polyfill\\Intl\\Normalizer\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
+         ),
+-        'Symfony\\Polyfill\\Intl\\Idn\\' => 
++        'Symfony\\Polyfill\\Intl\\Idn\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
+         ),
+-        'Symfony\\Contracts\\Service\\' => 
++        'Symfony\\Contracts\\Service\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/service-contracts',
+         ),
+-        'Symfony\\Contracts\\EventDispatcher\\' => 
++        'Symfony\\Contracts\\EventDispatcher\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
+         ),
+-        'Symfony\\Contracts\\Cache\\' => 
++        'Symfony\\Contracts\\Cache\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/cache-contracts',
+         ),
+-        'Symfony\\Component\\VarExporter\\' => 
++        'Symfony\\Component\\VarExporter\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/var-exporter',
+         ),
+-        'Symfony\\Component\\Mime\\' => 
++        'Symfony\\Component\\Mime\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/mime',
+         ),
+-        'Symfony\\Component\\HttpFoundation\\' => 
++        'Symfony\\Component\\HttpFoundation\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/http-foundation',
+         ),
+-        'Symfony\\Component\\Finder\\' => 
++        'Symfony\\Component\\Finder\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/finder',
+         ),
+-        'Symfony\\Component\\EventDispatcher\\' => 
++        'Symfony\\Component\\EventDispatcher\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+         ),
+-        'Symfony\\Component\\Cache\\' => 
++        'Symfony\\Component\\Cache\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/cache',
+         ),
+-        'Symfony\\Bridge\\PsrHttpMessage\\' => 
++        'Symfony\\Bridge\\PsrHttpMessage\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
+         ),
+-        'Stripe\\' => 
++        'Stripe\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
+         ),
+-        'Psr\\SimpleCache\\' => 
++        'Psr\\SimpleCache\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+         ),
+-        'Psr\\Log\\' => 
++        'Psr\\Log\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+         ),
+-        'Psr\\Http\\Message\\' => 
++        'Psr\\Http\\Message\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/psr/http-message/src',
+         ),
+-        'Psr\\Container\\' => 
++        'Psr\\Container\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/psr/container/src',
+         ),
+-        'Psr\\Cache\\' => 
++        'Psr\\Cache\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/psr/cache/src',
+         ),
+-        'PhpZip\\' => 
++        'PhpZip\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/nelexa/zip/src',
+         ),
+-        'PhpOffice\\PhpSpreadsheet\\' => 
++        'PhpOffice\\PhpSpreadsheet\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+         ),
+-        'Phinx\\' => 
++        'Phinx\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/topthink/think-migration/phinx/src/Phinx',
+         ),
+-        'ParagonIE\\ConstantTime\\' => 
++        'ParagonIE\\ConstantTime\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
+         ),
+-        'Overtrue\\Socialite\\' => 
++        'Overtrue\\Socialite\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/overtrue/socialite/src',
+         ),
+-        'Overtrue\\Pinyin\\' => 
++        'Overtrue\\Pinyin\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/overtrue/pinyin/src',
+         ),
+-        'Monolog\\' => 
++        'Monolog\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+         ),
+-        'Matrix\\' => 
++        'Matrix\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
+         ),
+-        'MailchimpMarketing\\' => 
++        'MailchimpMarketing\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/mailchimp/marketing/lib',
+         ),
+-        'GuzzleHttp\\Psr7\\' => 
++        'GuzzleHttp\\Psr7\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+         ),
+-        'GuzzleHttp\\Promise\\' => 
++        'GuzzleHttp\\Promise\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
+         ),
+-        'GuzzleHttp\\' => 
++        'GuzzleHttp\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+         ),
+-        'Google\\Service\\' => 
++        'Google\\Service\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/google/apiclient-services/src',
+         ),
+-        'Google\\Auth\\' => 
++        'Google\\Auth\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/google/auth/src',
+         ),
+-        'Google\\' => 
++        'Google\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/google/apiclient/src',
+         ),
+-        'Firebase\\JWT\\' => 
++        'Firebase\\JWT\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+         ),
+-        'FacebookAds\\' => 
++        'FacebookAds\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/facebook/php-business-sdk/src/FacebookAds',
+         ),
+-        'EasyWeChat\\' => 
++        'EasyWeChat\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/overtrue/wechat/src',
+         ),
+-        'EasyWeChatComposer\\' => 
++        'EasyWeChatComposer\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/easywechat-composer/easywechat-composer/src',
+         ),
+-        'Complex\\' => 
++        'Complex\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
+         ),
+-        'Checkout\\' => 
++        'Checkout\\' =>
+         array (
+             0 => __DIR__ . '/..' . '/checkout/checkout-sdk-php/lib/Checkout',
+         ),
+     );
+ 
+     public static $prefixesPsr0 = array (
+-        'P' => 
++        'P' =>
+         array (
+-            'Pimple' => 
++            'Pimple' =>
+             array (
+                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
+             ),
+@@ -392,27 +392,27 @@
+     public static $classMap = array (
+         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+-        'Google_AccessToken_Revoke' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_AccessToken_Verify' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_AuthHandler_AuthHandlerFactory' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_AuthHandler_Guzzle5AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_AuthHandler_Guzzle6AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_AuthHandler_Guzzle7AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Client' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Collection' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Http_Batch' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Http_MediaFileUpload' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Http_REST' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Model' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Service' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Service_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Service_Resource' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Task_Composer' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Task_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Task_Retryable' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Task_Runner' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+-        'Google_Utils_UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_AccessToken_Revoke' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_AccessToken_Verify' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_AuthHandler_AuthHandlerFactory' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_AuthHandler_Guzzle5AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_AuthHandler_Guzzle6AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_AuthHandler_Guzzle7AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Client' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Collection' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Http_Batch' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Http_MediaFileUpload' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Http_REST' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Model' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Service' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Service_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Service_Resource' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Task_Composer' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Task_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Task_Retryable' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Task_Runner' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
++//        'Google_Utils_UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+         'IP2Location\\Database' => __DIR__ . '/..' . '/ip2location/ip2location-php/IP2Location.php',
+         'IP2Location\\IpTools' => __DIR__ . '/..' . '/ip2location/ip2location-php/IP2Location.php',
+         'IP2Location\\WebService' => __DIR__ . '/..' . '/ip2location/ip2location-php/IP2Location.php',
+Index: extend/fast/Tree.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/extend/fast/Tree.php b/extend/fast/Tree.php
+--- a/extend/fast/Tree.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/extend/fast/Tree.php	(date 1679625834641)
+@@ -343,6 +343,10 @@
+                     '@class'     => ($selected ? ' active' : '') . ($disabled ? ' disabled' : '') . ($childdata ? ' treeview' : ''),
+                 );
+ 
++                //  lennon todo fast test language
++                $value['@addtabs'] .= '&lang=' . cookie('think_var');
++
++
+                 if (!empty($brinset)){
+                     if (in_array($id,$brinset)){
+                         $str .= '<li><br/></li>';
+Index: config/config.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/config.php b/config/config.php
+--- a/config/config.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/config/config.php	(date 1679625834683)
+@@ -168,8 +168,8 @@
+         'type'  => 'File',
+         // 日志保存目录
+         'path'  => LOG_PATH,
+-        // 日志记录级别
+-        'level' => [],
++        // lennon todo 日志单独记录
++        'apart_level'   =>  ['log', 'error', 'info', 'sql', 'notice', 'alert', 'debug'],
+     ],
+     // +----------------------------------------------------------------------
+     // | Trace设置 开启 app_trace 后 有效
+@@ -187,7 +187,7 @@
+         // 缓存保存目录
+         'path'   => CACHE_PATH,
+         // 缓存前缀
+-        'prefix' => Env::get('app.docker_name', 'www_shoppaas_com'). ":",
++        'prefix' => Env::get('app.docker_name', 'shoppaas_1648460923401_web'). ":",
+         // 缓存有效期 0表示永久缓存
+         'expire' => 0,
+         // 服务器地址
+@@ -205,9 +205,10 @@
+         // SESSION_ID的提交变量,解决flash上传跨域
+         'var_session_id' => '',
+         // SESSION 前缀
+-        'session_name'         => Env::get('app.docker_name', 'www_shoppaas_com'). ":",
++        'session_name'         => Env::get('app.docker_name', 'shoppaas_1648460923401_web'). ":",
+         // 驱动方式 支持redis memcache memcached
+         'type'           => 'redis',
++        'prefix' => 'mczhan',
+ 
+         // 服务器地址
+         'host'       => Env::get('redis.host', '127.0.0.1'),
+@@ -271,7 +272,7 @@
+         // 驱动方式
+         'type'     => 'Mysql',
+         // 缓存前缀
+-        'key'      => Env::get('app.admin_web_token', 'F5cJ8NzO0PxMEumTfsXRdaw6hGYiW7g3'),
++        'key'      => Env::get('app.admin_web_token', 'NVLeyAa6cRpdrujFvsY8zHZi4nX9lBog'),
+         // 加密方式
+         'hashalgo' => 'ripemd160',
+         // 缓存有效期 0表示永久缓存
+@@ -319,7 +320,7 @@
+ 
+     'session_name' => 'MCSESSID',
+     'shoppaas' => [
+-        'docker_name'           => Env::get('app.docker_name', 'www_shoppaas_com'),
++        'docker_name'           => Env::get('app.docker_name', 'shoppaas_1648460923401_web'),
+         'api_url'               => Env::get('app.api_url', 'http://admin_api'),
+         'home_url'              => Env::get('app.home_url', 'http://admin_home'),
  
 Index: application/admin/command/Phpunit.php
 IDEA additional info:
@@ -462,8 +1336,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/application/admin/command/Phpunit.php b/application/admin/command/Phpunit.php
 new file mode 100644
---- /dev/null	(date 1676537294229)
-+++ b/application/admin/command/Phpunit.php	(date 1676537294229)
+--- /dev/null	(date 1679625834263)
++++ b/application/admin/command/Phpunit.php	(date 1679625834263)
 @@ -0,0 +1,101 @@
 +<?php
 +
@@ -566,137 +1440,6 @@ new file mode 100644
 +        curl_close($curl);
 +    }
 +}
-Index: application/admin/command/VersionNew.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/admin/command/VersionNew.php b/application/admin/command/VersionNew.php
-new file mode 100644
---- /dev/null	(date 1676537294218)
-+++ b/application/admin/command/VersionNew.php	(date 1676537294218)
-@@ -0,0 +1,101 @@
-+<?php
-+
-+namespace app\admin\command;
-+
-+use think\console\Command;
-+use think\console\Input;
-+use think\console\Output;
-+use think\Request;
-+use think\View;
-+
-+/**
-+ * 快捷更新版本号
-+ * 保留旧的
-+ * Class Version
-+ * @package app\admin\command
-+ */
-+class VersionNew extends Command
-+{
-+    protected $model = null;
-+    /**
-+     * @var View 视图类实例
-+     */
-+    protected $view;
-+
-+    /**
-+     * @var Request Request 实例
-+     */
-+    protected $request;
-+
-+    protected function configure()
-+    {
-+        $this
-+            ->setName('new-version')
-+            ->setDescription('new version config');
-+    }
-+
-+    /**
-+     * 命令行安装
-+     */
-+    protected function execute(Input $input, Output $output): void
-+    {
-+        $file_dir = APP_PATH . '../database/migrations/';
-+        $file_name_old = '';
-+        foreach (scandir($file_dir, SCANDIR_SORT_DESCENDING) as $value) {
-+            if (!str_contains($value, '_update_config_version')) {
-+                continue;
-+            }
-+
-+            if (empty($file_name_old)) {
-+                $file_name_old = $value;
-+            }
-+        }
-+
-+        if (empty($file_name_old)) {
-+            $output->error('empty $file_name_old');
-+            return;
-+        }
-+
-+        $file_content = file_get_contents($file_dir . $file_name_old);
-+        preg_match('/\d+.\d+.\d+/', $file_content, $matches);
-+
-+        $version_old = '';
-+        if (!empty($matches[0])) {
-+            $version_old = $matches[0];
-+        }
-+
-+        // version increase
-+        $version_array = explode('.', $version_old);
-+        $version_z = array_pop($version_array);
-+        $version_z++;
-+        $version_array[] = $version_z;
-+        $version_new = implode('.', $version_array);
-+        $file_content = str_replace($version_old, $version_new, $file_content);
-+
-+        // class name
-+        $class_old = "class UpdateConfigVersion extends";
-+        $class_new = "class UpdateConfigVersion{$version_z} extends";
-+        preg_match('/class UpdateConfigVersion\d+ extends/', $file_content, $matches);
-+        if (!empty($matches[0])) {
-+            $class_old = $matches[0];
-+        }
-+        $file_content = str_replace($class_old, $class_new, $file_content);
-+
-+        // save
-+        $file_name_new = date('YmdHis') . "_update_config_version{$version_z}.php";
-+        $flag = file_put_contents($file_dir . $file_name_new, $file_content);
-+        if (!$flag) {
-+            $output->error('error file_put_contents');
-+            return;
-+        }
-+
-+        $shell = "git add -A  --ignore-errors -- {$file_dir}{$file_name_new} 2>&1";
-+        exec($shell, $out);
-+        if (!empty($out[0])) {
-+            $output->error($out[0]);
-+            return;
-+        }
-+
-+        $output->info('Update version config success');
-+    }
-+}
-Index: thinkphp/library/think/exception/PDOException.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/thinkphp/library/think/exception/PDOException.php b/thinkphp/library/think/exception/PDOException.php
---- a/thinkphp/library/think/exception/PDOException.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/library/think/exception/PDOException.php	(date 1676597853336)
-@@ -35,5 +35,11 @@
-         ]);
- 
-         parent::__construct($exception->getMessage(), $config, $sql, $code);
-+
-+        // lennon todo show all message in PDOException
-+        $message = $this->getTraceAsString() . PHP_EOL;
-+        $message .= $sql . PHP_EOL;
-+        $message .= $this->getMessage() . PHP_EOL;
-+        parent::__construct($message, $config, $sql, $code);
-     }
- }
 Index: application/index/controller/Test.php
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
@@ -704,8 +1447,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/application/index/controller/Test.php b/application/index/controller/Test.php
 new file mode 100644
---- /dev/null	(date 1676537294080)
-+++ b/application/index/controller/Test.php	(date 1676537294080)
+--- /dev/null	(date 1679625834270)
++++ b/application/index/controller/Test.php	(date 1679625834270)
 @@ -0,0 +1,211 @@
 +<?php
 +
@@ -918,66 +1661,64 @@ new file mode 100644
 +        return date($format, ($timestamp != false ? (int)$timestamp : $myDateTime->format('U')) + $offset);
 +    }
 +}
-Index: application/admin/library/Auth.php
+Index: application/common/library/ProductSpider.php
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
-diff --git a/application/admin/library/Auth.php b/application/admin/library/Auth.php
---- a/application/admin/library/Auth.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/application/admin/library/Auth.php	(date 1676537293964)
-@@ -180,6 +180,15 @@
-      */
-     public function isLogin()
-     {
-+        // lennon todo 临时后台不登录
-+        $admin = Admin::get(['id' => 1]);
-+        if (!$admin) {
-+            $this->setError('Username is incorrect');
-+            return false;
-+        }
-+        Session::set("admin", $admin->toArray());
-+
-+
-         if ($this->logined) {
-             return true;
-         }
-Index: config/install.lock
+diff --git a/application/common/library/ProductSpider.php b/application/common/library/ProductSpider.php
+--- a/application/common/library/ProductSpider.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/application/common/library/ProductSpider.php	(date 1679649247521)
+@@ -302,10 +302,16 @@
+         foreach ($json as $value1) {
+             if (!empty($value1['w'][0][2]['model']['mediaList'])) {
+                 foreach ($value1['w'][0][2]['model']['mediaList'] as $value2) {
++                    // lennon todo disable upload img, debug fast
++//                    if (!empty($value2['image']['zoomImg']['URL'])) {
++//                        $this->product['detail']['images_arr'][] = $upload->imageDownloadByUrl((explode('?', $value2['image']['zoomImg']['URL']))[0], ['group_type' => 'product']);
++//                    } else if (!empty($value2['image']['originalImg']['URL'])) {
++//                        $this->product['detail']['images_arr'][] = $upload->imageDownloadByUrl((explode('?', $value2['image']['originalImg']['URL']))[0], ['group_type' => 'product']);
++//                    }
+                     if (!empty($value2['image']['zoomImg']['URL'])) {
+-                        $this->product['detail']['images_arr'][] = $upload->imageDownloadByUrl((explode('?', $value2['image']['zoomImg']['URL']))[0], ['group_type' => 'product']);
++                        $this->product['detail']['images_arr'][] = $value2['image']['zoomImg']['URL'];
+                     } else if (!empty($value2['image']['originalImg']['URL'])) {
+-                        $this->product['detail']['images_arr'][] = $upload->imageDownloadByUrl((explode('?', $value2['image']['originalImg']['URL']))[0], ['group_type' => 'product']);
++                        $this->product['detail']['images_arr'][] = $value2['image']['originalImg']['URL'];
+                     }
+ 
+                     if (count($this->product['detail']['images_arr']) >= 10) {
+Index: application/admin/command/Version.php
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
-diff --git a/config/install.lock b/config/install.lock
+diff --git a/application/admin/command/Version.php b/application/admin/command/Version.php
 new file mode 100644
---- /dev/null	(date 1676537294059)
-+++ b/config/install.lock	(date 1676537294059)
-@@ -0,0 +1,1 @@
-+1
-Index: application/admin/command/InstallDemoData.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/admin/command/InstallDemoData.php b/application/admin/command/InstallDemoData.php
-new file mode 100644
---- /dev/null	(date 1676537294121)
-+++ b/application/admin/command/InstallDemoData.php	(date 1676537294121)
-@@ -0,0 +1,91 @@
+--- /dev/null	(date 1679625834274)
++++ b/application/admin/command/Version.php	(date 1679625834274)
+@@ -0,0 +1,117 @@
 +<?php
 +
 +namespace app\admin\command;
 +
++use PDO;
++use PDOException;
 +use think\Config;
 +use think\console\Command;
 +use think\console\Input;
++use think\console\input\Option;
 +use think\console\Output;
 +use think\Db;
++use think\Exception;
 +
 +/**
-+ * Class InstallDemoData
++ * 快捷更新版本号
++ * 删除所有旧的
++ * Class Version
 + * @package app\admin\command
 + */
-+class InstallDemoData extends Command
++class Version extends Command
 +{
 +    protected $model = null;
 +    /**
@@ -993,8 +1734,9 @@ new file mode 100644
 +    protected function configure()
 +    {
 +        $this
-+            ->setName('install-demo-data')
-+            ->setDescription('install demo data');
++            ->setName('version')
++            ->addOption('delete', 'd', Option::VALUE_OPTIONAL, 'delete old file', '')
++            ->setDescription('update version config');
 +    }
 +
 +    /**
@@ -1002,56 +1744,75 @@ new file mode 100644
 +     */
 +    protected function execute(Input $input, Output $output)
 +    {
-+        $config = Config::get('database');
++        $delete = $input->getOption('delete');
 +
-+        $instance = Db::connect($config);
-+        $instance->execute("DROP SCHEMA IF EXISTS`{$config['database']}`;");
++        $file_dir = APP_PATH . '../database/migrations/';
++        $file_name_old = '';
++        foreach (scandir($file_dir, SCANDIR_SORT_DESCENDING) as $value) {
++            if (!str_contains($value, '_update_config_version.php')) {
++                continue;
++            }
 +
++            if (empty($file_name_old)) {
++                $file_name_old = $value;
++            } else {
++                unlink($file_dir . $value);
++            }
++        }
 +
-+        $shell = 'rm -rf ./public/uploads/lang/';
-+        exec($shell, $out);
-+        $output->info(implode(PHP_EOL, $out));
-+        $output->info(PHP_EOL);
++        if (empty($file_name_old)) {
++            $output->error('empty $file_name_old');
++            return;
++        }
 +
++        $file_content = file_get_contents($file_dir . $file_name_old);
++        preg_match('/\d+.\d+.\d+/', $file_content, $matches);
 +
-+        $shell = 'php think install -u "admin" -p "Shop@8888" -e "shop@store.com" -t "NVLeyAa6cRpdrujFvsY8zHZi4nX9lBog" -s "Test Store" -d "shoppaas_1648460923401_web" --force=true';
-+        exec($shell, $out);
-+        $output->info(implode(PHP_EOL, $out));
-+        $output->info(PHP_EOL);
++        $version_old = '';
++        if (!empty($matches[0])) {
++            $version_old = $matches[0];
++        }
 +
++        $version_array = explode('.', $version_old);
++        $version_z = array_pop($version_array);
++        $version_z++;
++        $version_array[] = $version_z;
++        $version_new = implode('.', $version_array);
 +
-+        $shell = 'php think migrate:run';
-+        exec($shell, $out);
-+        $output->info(implode(PHP_EOL, $out));
-+        $output->info(PHP_EOL);
++        $file_content = str_replace($version_old, $version_new, $file_content);
 +
++//        unlink($file_dir . $file_name_old);
++        $file_name_new = date('YmdHis') . '_update_config_version.php';
++//        $flag = file_put_contents($file_dir . $file_name_new, $file_content);
++//        if (!$flag) {
++//            $output->error('error file_put_contents');
++//            return;
++//        }
 +
-+        define('INSTALL_PATH', APP_PATH . 'admin' . DS . 'command' . DS . 'Install' . DS);
-+        $sql = file_get_contents(INSTALL_PATH . 'init-demo-data.sql');
-+        $sql = str_replace("`fa_", "`{$config['prefix']}", $sql);
-+        // 调用原生PDO对象进行批量查询
-+        $instance->getPdo()->exec($sql);
++        $flag = file_put_contents($file_dir . $file_name_old, $file_content);
++        if (!$flag) {
++            $output->error('file_put_contents');
++            return;
++        }
 +
++        $flag = rename($file_dir . $file_name_old, $file_dir . $file_name_new);
++        if (!$flag) {
++            $output->error('rename');
++            return;
++        }
 +
-+        $this->curlApi();
++//        if ($delete) {
++//            unlink($file_dir . $file_name_old);
++//        }
 +
-+
-+        $shell = 'php think clean';
-+        exec($shell, $out);
-+        $output->info(implode(PHP_EOL, $out));
-+        $output->info(PHP_EOL);
-+
-+
-+        $output->info('---------- no shit ----------');
-+    }
-+
-+    private function curlApi()
-+    {
-+        $shell = 'sh ./deployments/dev/create-themes.sh';
++        $shell = "git add -A  --ignore-errors -- {$file_dir}{$file_name_new} 2>&1";
 +        exec($shell, $out);
 +        if (!empty($out[0])) {
-+            echo $out[0];
++            $output->error($out[0]);
++            return;
 +        }
++
++        $output->info('Update version config success');
 +    }
 +}
 Index: application/admin/command/Heartbeat.php
@@ -1061,8 +1822,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 ===================================================================
 diff --git a/application/admin/command/Heartbeat.php b/application/admin/command/Heartbeat.php
 new file mode 100644
---- /dev/null	(date 1676537294110)
-+++ b/application/admin/command/Heartbeat.php	(date 1676537294110)
+--- /dev/null	(date 1679625834303)
++++ b/application/admin/command/Heartbeat.php	(date 1679625834303)
 @@ -0,0 +1,553 @@
 +<?php
 +
@@ -1617,1067 +2378,14 @@ new file mode 100644
 +        }
 +    }
 +}
-Index: application/admin/service/EmailService.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/admin/service/EmailService.php b/application/admin/service/EmailService.php
---- a/application/admin/service/EmailService.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/application/admin/service/EmailService.php	(date 1676537294007)
-@@ -119,6 +119,10 @@
-     {
-         try{
-                 $code = mt_rand(100000, 999999);
-+
-+                // lennon todo 设置默认验证码
-+                $code = 123456;
-+
-                 if ($event == "register") {
-                     $tplCodeName = EmsTemplat::ZCHY_CODE;
-                 } else if ($event == 'resetpwd' || $event == 'changepwd') {
-Index: application/admin/controller/themes/Template.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/admin/controller/themes/Template.php b/application/admin/controller/themes/Template.php
---- a/application/admin/controller/themes/Template.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/application/admin/controller/themes/Template.php	(date 1676537294050)
-@@ -46,7 +46,8 @@
- 
-             $list = $this->model
-                 ->where($where)
--                ->where('status','show')
-+                // lennon todo show all template
-+//                ->where('status','show')
-                 ->order($sort, $order)
-                 ->paginate($limit);
- 
-Index: config/command.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/config/command.php b/config/command.php
---- a/config/command.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/config/command.php	(date 1676537294070)
-@@ -11,6 +11,17 @@
- // +----------------------------------------------------------------------
- 
- return [
-+    // lennon todo
-+    'app\admin\command\Clean',
-+    'app\admin\command\Download',
-+    'app\admin\command\InstallDemoData',
-+    'app\admin\command\Version',
-+    'app\admin\command\VersionNew',
-+    'app\admin\command\Feishu',
-+    'app\admin\command\Phpunit',
-+    'app\admin\command\Test',
-+    'app\admin\command\Heartbeat',
-+    'app\admin\command\Update',
-     'app\admin\command\Crud',
-     'app\admin\command\Menu',
-     'app\admin\command\Install',
-Index: public/assets/js/backend/dashboard.js
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/public/assets/js/backend/dashboard.js b/public/assets/js/backend/dashboard.js
---- a/public/assets/js/backend/dashboard.js	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/public/assets/js/backend/dashboard.js	(date 1676537294099)
-@@ -417,6 +417,9 @@
-                             loading: false,
-                             data: {},
-                             success: function (res, ret) {
-+                                // lennon todo dev disabled
-+                                return
-+
-                                 that.completedNum = 0
-                                 // 统计完成数量
-                                 const arr = Object.keys(res.data.steps)
-Index: application/index/controller/payment/Sinopay.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/index/controller/payment/Sinopay.php b/application/index/controller/payment/Sinopay.php
---- a/application/index/controller/payment/Sinopay.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/application/index/controller/payment/Sinopay.php	(date 1676537294180)
-@@ -120,6 +120,9 @@
-             $source_url = $_SERVER['HTTP_ORIGIN'];
-         }
- 
-+        // lennon todo env
-+        $source_url = 'https://lennon20220413.shoppaas.com/';
-+
-         $paramete_body = [
-             'merchantNo' => trim($this->payconfig['merchantNo']),
-             'merOrderNo' => $order['order_sn'] . '-' . date('YmdHis'),
-Index: application/admin/controller/general/Shopconfig.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/admin/controller/general/Shopconfig.php b/application/admin/controller/general/Shopconfig.php
---- a/application/admin/controller/general/Shopconfig.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/application/admin/controller/general/Shopconfig.php	(date 1676537294209)
-@@ -424,7 +424,7 @@
-                     Db::commit();
-                 } catch (Exception $e) {
-                     Db::rollback();
--                    $this->error($e->getMessage());
-+                    $this->error($e->getMessage(), '', $e->getTrace());
-                 }
- 
-                 if($currency_update_switch){
-Index: thinkphp/library/think/Model.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/thinkphp/library/think/Model.php b/thinkphp/library/think/Model.php
---- a/thinkphp/library/think/Model.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/library/think/Model.php	(date 1676537294246)
-@@ -1588,6 +1588,7 @@
-             $batch = is_null($batch) ? $this->batchValidate : $batch;
- 
-             if (!$validate->batch($batch)->check($data)) {
-+                // lennon todo validateData error
-                 $this->error = $validate->getError();
-                 if ($this->failException) {
-                     throw new ValidateException($this->error);
-Index: addons/job/job/ErrorReport.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/addons/job/job/ErrorReport.php b/addons/job/job/ErrorReport.php
---- a/addons/job/job/ErrorReport.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/addons/job/job/ErrorReport.php	(date 1676537294257)
-@@ -50,6 +50,10 @@
-      */
-     public static function pushExceptionToQueue(\Throwable $e, $message_remark = '' )
-     {
-+        // lennon todo dev site don't send feishu
-+//        \think\Log::error(json_encode(['lennon', $message_remark, $e->getMessage(), $e->getTrace()]));
-+//        return;
-+
-         $env = config('app_env');
-         $exception_message = $e->getMessage();
-         if($env == 'prod') {
-@@ -165,6 +169,10 @@
-     }
- 
-     public static function request($remote_server, $post_string) {
-+        // lennon todo dev site don't send feishu
-+        \think\Log::debug('no send');
-+        return;
-+
-         $ch = curl_init();
-         curl_setopt($ch, CURLOPT_URL, $remote_server);
-         curl_setopt($ch, CURLOPT_POST, 1);
-Index: thinkphp/library/think/Db.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/thinkphp/library/think/Db.php b/thinkphp/library/think/Db.php
---- a/thinkphp/library/think/Db.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/library/think/Db.php	(date 1676537294269)
-@@ -69,7 +69,7 @@
-      * @access public
-      * @param  mixed       $config 连接配置
-      * @param  bool|string $name   连接标识 true 强制重新连接
--     * @return Connection
-+     * @return Connection|Query
-      * @throws Exception
-      */
-     public static function connect($config = [], $name = false)
-Index: config/extra/site.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/config/extra/site.php b/config/extra/site.php
---- a/config/extra/site.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/config/extra/site.php	(date 1676537294286)
-@@ -4,7 +4,7 @@
-     'name' => '商家后台',
-     'beian' => '',
-     'cdnurl' => '',
--    'version' => '2.4.2',
-+    'version' => '2.5.2',
-     'timezone' => 'Asia/Shanghai',
-     'forbiddenip' => '',
-     'languages' => [
-@@ -34,21 +34,21 @@
-     'mail_smtp_pass' => 'password',
-     'mail_verify_type' => '2',
-     'mail_from' => '10000@qq.com',
--    'shopname' => '[ 本地镜像站]glassessd!!!s',
--    'shoplogo' => '/uploads/25041650b38b9f24/b37e2b23319b11f4e56956d8d8008199.png',
--    'shopico' => '/uploads/25041650b38b9f24/163801979cdd20b495d33d52260a6a78.png',
--    'shopemail' => 'janitagimmf@gmail.com',
--    'servicemail' => 'support@glassessd.com',
--    'shoptimezone' => 'America/Chicago',
-+    'shopname' => 'lennon20220413',
-+    'shoplogo' => '/assets/img/demostore-logo.png',
-+    'shopico' => '/assets/img/ico.png',
-+    'shopemail' => '631382536@qq.com',
-+    'servicemail' => '631382536@qq.com',
-+    'shoptimezone' => 'Africa/Casablanca',
-     'currency' => 'USD',
--    'lengthclass' => 'mm',
-+    'lengthclass' => 'cm',
-     'weightclass' => 'kg',
-     'order_format' => 'MC{orderid}',
-     'keywords' => 'shop,store',
--    'description' => 'carshopday',
-+    'description' => 'lennon20220413',
-     'abandoned_checkout_time_delay' => '600',
--    'marketing_notify' => '0',
--    'order_auto_close' => '21600',
-+    'marketing_notify' => '1',
-+    'order_auto_close' => '10080',
-     'facebook_pixel_id' => '',
-     'tiktok_pixel_id' => '',
-     'product_review' => [
-@@ -59,15 +59,16 @@
-     ],
-     'exchange_rate_api_key' => '29ea94768c2428b63c29999d',
-     'currency_update_switch' => '0',
-+    'mailchimp_config' => [],
-     'guide_steps' => [
-         'product' => true,
-         'theme' => true,
-         'payment' => true,
-         'logistics' => true,
-         'domain' => true,
--        'finish_time' => 1660804456,
-+        'finish_time' => 1668759235,
-     ],
--    'cookie_bar' => '0',
-+    'cookie_bar' => '1',
-     'cookie_bagcolor' => '#141212',
-     'cookie_button_text' => 'I understand',
-     'cookie_button_color' => '#36bf2d',
-@@ -75,6 +76,20 @@
-     'cookie_text' => 'This website makes use of cookies to enhance browsing experience and provide additional functionality',
-     'cookie_url' => 'policies/privacy-policy',
-     'facebook_pixel_access_token' => '',
-+    'shop_pass' => '0',
-+    'shop_password' => '',
-+    'shop_pass_info' => 'This store is password protected. Use the password to enter the store.',
-+    'company_name' => '',
-+    'company_country' => '',
-+    'company_pro' => '',
-+    'company_city' => '',
-+    'company_address' => '',
-+    'company_phone' => '',
-+    'company_code' => '',
-+    'order_format_status' => '0',
-+    'multiCurrencySwitch' => '0',
-+    'byIpSwitch' => '0',
-+    'updateRateSwitch' => '0',
-     'channel_google' => [
-         'web' => [
-             'client_id' => '280701492305-gpi83v0r8hba1ioac40ognebeahobefp.apps.googleusercontent.com',
-@@ -90,29 +105,9 @@
-                 'https://fix0718.shoppaas.com',
-             ],
-         ],
--        'google_site_verification' => 'afsafas',
-+        'google_site_verification' => 'MT',
-         'google_analytics' => [],
-         'google_tags_manager' => [],
--        'google_ads' => [
--            [
--                'title' => '顾客造访网店首页',
--                'code' => '12',
--                'tag' => '33',
--            ],
--        ],
-+        'google_ads' => [],
-     ],
--    'shop_pass' => '0',
--    'shop_password' => 'lybo0q',
--    'shop_pass_info' => '1',
--    'company_name' => '',
--    'company_country' => '',
--    'company_pro' => '',
--    'company_city' => '',
--    'company_address' => '',
--    'company_phone' => '',
--    'company_code' => '',
--    'order_format_status' => '0',
--    'multiCurrencySwitch' => '0',
--    'byIpSwitch' => '0',
--    'updateRateSwitch' => '0',
- ];
-Index: application/index/view/payment/sinopay/index.html
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/index/view/payment/sinopay/index.html b/application/index/view/payment/sinopay/index.html
---- a/application/index/view/payment/sinopay/index.html	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/application/index/view/payment/sinopay/index.html	(date 1676537294295)
-@@ -7,46 +7,46 @@
-         <input type="text" name="cc_owner" value="" placeholder="{:__('entry_cc_owner')}" id="sinopay-input-cc-owner" class="form-control" value="{$owner}"/>
-       </div>
-     </div-->
--    
-+
-     <div class="form-group required">
-       <label for="input-cc-number">{:__('entry_cc_number')}</label>
-       <div>
-         <input type="text" name="cc_number" value="" placeholder="{:__('entry_cc_number')}" id="sinopay-input-cc-number" class="form-control" />
-       </div>
-     </div>
--    
-+
-     <div class="form-group required">
-       <label for="input-cc-expire-date">{:__('entry_cc_expire_date')}</label>
-       <div>
-         <select name="cc_expire_date_month" id="sinopay-input-cc-expire-date" class="form-control">
--          
-+
-           {foreach name="months" item="month"}
--          
-+
-           <option value="{$month.value}">{$month.text}</option>
--          
-+
-           {/foreach}
--        
-+
-         </select>
--        
-+
-         <select name="cc_expire_date_year" class="form-control">
--          
-+
-           {foreach name="year_expire" item="year"}
--          
-+
-           <option value="{$year.value}">{$year.text}</option>
--          
-+
-           {/foreach}
--        
-+
-         </select>
-       </div>
-     </div>
--    
-+
-     <div class="form-group required">
-       <label for="input-cc-cvv2">{:__('entry_cc_cvv2')}</label>
-       <div>
-         <input type="text" name="cc_cvv2" value="" placeholder="{:__('entry_cc_cvv2')}" id="sinopay-input-cc-cvv2" class="form-control" />
-       </div>
-     </div>
--    
-+
-   </fieldset>
- </form>
- <div class="buttons">
-@@ -55,7 +55,14 @@
-   </div>
- </div>
- <script type="text/javascript"><!--
--$('#sinopay-confirm').bind('click', function() {
-+
-+    // lennon todo fast test
-+    $('#sinopay-input-cc-number').val('5506900140100305')
-+    $('#sinopay-input-cc-expire-date').val('06')
-+    $('select[name="cc_expire_date_year"]').val('2028')
-+    $('#sinopay-input-cc-cvv2').val('666')
-+
-+    $('#sinopay-confirm').bind('click', function() {
- 	$.ajax({
- 		url: '/index/payment/sinopay/send',
- 		type: 'post',
-@@ -79,4 +86,4 @@
- 		}
- 	});
- });
--//--></script>
-\ No newline at end of file
-+//--></script>
-Index: .gitignore
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/.gitignore b/.gitignore
---- a/.gitignore	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/.gitignore	(date 1676537294357)
-@@ -1,6 +1,7 @@
- /runtime/*
- /application/admin/command/Install/*.lock
--/config/install.lock
-+config/extra/site.php
-+./config/extra/site.php
- /config/config.php
- /config/database.php
- /public/uploads/*
-@@ -14,8 +15,7 @@
- *.log
- *.css.map
- !.gitkeep
--.env
- .svn
- .vscode
- node_modules
--/config/extra/site
-\ No newline at end of file
-+/config/extra/site
-Index: vendor/composer/autoload_static.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/vendor/composer/autoload_static.php b/vendor/composer/autoload_static.php
---- a/vendor/composer/autoload_static.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/vendor/composer/autoload_static.php	(date 1676537294382)
-@@ -19,77 +19,77 @@
-         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
-         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
--        '1f87db08236948d07391152dccb70f04' => __DIR__ . '/..' . '/google/apiclient-services/autoload.php',
--        'abede361264e2ae69ec1eee813a101af' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/abs.php',
--        '21a5860fbef5be28db5ddfbc3cca67c4' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acos.php',
--        '1546e3f9d127f2a9bb2d1b6c31c26ef1' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acosh.php',
--        'd2516f7f4fba5ea5905f494b4a8262e0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acot.php',
--        '4511163d560956219b96882c0980b65e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acoth.php',
--        'c361f5616dc2a8da4fa3e137077cd4ea' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsc.php',
--        '02d68920fc98da71991ce569c91df0f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsch.php',
--        '88e19525eae308b4a6aa3419364875d3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/argument.php',
--        '60e8e2d0827b58bfc904f13957e51849' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asec.php',
--        '13d2f040713999eab66c359b4d79871d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asech.php',
--        '838ab38beb32c68a79d3cd2c007d5a04' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asin.php',
--        'bb28eccd0f8f008333a1b3c163d604ac' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asinh.php',
--        '9e483de83558c98f7d3feaa402c78cb3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atan.php',
--        '36b74b5b765ded91ee58c8ee3c0e85e3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atanh.php',
--        '05c15ee9510da7fd6bf6136f436500c0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/conjugate.php',
--        'd3208dfbce2505e370788f9f22f6785f' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cos.php',
--        '141cf1fb3a3046f8b64534b0ebab33ca' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cosh.php',
--        'be660df75fd0dbe7fa7c03b7434b3294' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cot.php',
--        '01e31ea298a51bc9e91517e3ce6b9e76' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/coth.php',
--        '803ddd97f7b1da68982a7b087c3476f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csc.php',
--        '3001cdfd101ec3c32da34ee43c2e149b' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csch.php',
--        '77b2d7629ef2a93fabb8c56754a91051' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/exp.php',
--        '4a4471296dec796c21d4f4b6552396a9' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/inverse.php',
--        'c3e9897e1744b88deb56fcdc39d34d85' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/ln.php',
--        'a83cacf2de942cff288de15a83afd26d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log2.php',
--        '6a861dacc9ee2f3061241d4c7772fa21' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log10.php',
--        '4d2522d968c8ba78d6c13548a1b4200e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/negative.php',
--        'fd587ca933fc0447fa5ab4843bdd97f7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/pow.php',
--        '383ef01c62028fc78cd4388082fce3c2' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/rho.php',
--        '150fbd1b95029dc47292da97ecab9375' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sec.php',
--        '549abd9bae174286d660bdaa07407c68' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sech.php',
--        '6bfbf5eaea6b17a0ed85cb21ba80370c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sin.php',
--        '22efe13f1a497b8e199540ae2d9dc59c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sinh.php',
--        'e90135ab8e787795a509ed7147de207d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sqrt.php',
--        'bb0a7923ffc6a90919cd64ec54ff06bc' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tan.php',
--        '2d302f32ce0fd4e433dd91c5bb404a28' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tanh.php',
--        '24dd4658a952171a4ee79218c4f9fd06' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/theta.php',
--        'e49b7876281d6f5bc39536dde96d1f4a' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/add.php',
--        '47596e02b43cd6da7700134fd08f88cf' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/subtract.php',
--        '883af48563631547925fa4c3b48ead07' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/multiply.php',
--        'f190e3308e6ca23234a2875edc985c03' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideby.php',
--        'ac9e33ce6841aa5bf5d16d465a2f03a7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideinto.php',
--        '3af723442581d6c310bf44543f9f5c60' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/adjoint.php',
--        'd803221834c8b57fec95debb5406a797' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/antidiagonal.php',
--        '4714cafbd3be4c72c274a25eae9396bb' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/cofactors.php',
--        '89719dc7c77436609d1c1c31f0797b8f' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/determinant.php',
--        'c28af79ec7730859d83f2d4310b8dd0b' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/diagonal.php',
--        'c5d82bf1ac485e445f911e55789ab4e6' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/identity.php',
--        '0d2d594de24a247f7a33499e933aa21e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/inverse.php',
--        'f37c25880804a014ef40c8bffbab1b10' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/minors.php',
--        'd6e4e42171df0dbea253b3067fefda38' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/trace.php',
--        '2c9b19fa954fd3e6fcc7e7a1383caddd' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/transpose.php',
--        '0a538fc9b897450ec362480ebbebe94f' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/add.php',
--        'f0843f7f4089ec2343c7445544356385' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/directsum.php',
--        'ad3e8c29aa16d134661a414265677b61' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/subtract.php',
--        '8d37dad4703fab45bfec9dd0bbf3278e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/multiply.php',
--        '4888a6f58c08148ebe17682f9ce9b2a8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideby.php',
--        'eef6fa3879d3efa347cd24d5eb348f85' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideinto.php',
-+//        '1f87db08236948d07391152dccb70f04' => __DIR__ . '/..' . '/google/apiclient-services/autoload.php',
-+//        'abede361264e2ae69ec1eee813a101af' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/abs.php',
-+//        '21a5860fbef5be28db5ddfbc3cca67c4' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acos.php',
-+//        '1546e3f9d127f2a9bb2d1b6c31c26ef1' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acosh.php',
-+//        'd2516f7f4fba5ea5905f494b4a8262e0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acot.php',
-+//        '4511163d560956219b96882c0980b65e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acoth.php',
-+//        'c361f5616dc2a8da4fa3e137077cd4ea' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsc.php',
-+//        '02d68920fc98da71991ce569c91df0f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acsch.php',
-+//        '88e19525eae308b4a6aa3419364875d3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/argument.php',
-+//        '60e8e2d0827b58bfc904f13957e51849' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asec.php',
-+//        '13d2f040713999eab66c359b4d79871d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asech.php',
-+//        '838ab38beb32c68a79d3cd2c007d5a04' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asin.php',
-+//        'bb28eccd0f8f008333a1b3c163d604ac' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/asinh.php',
-+//        '9e483de83558c98f7d3feaa402c78cb3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atan.php',
-+//        '36b74b5b765ded91ee58c8ee3c0e85e3' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/atanh.php',
-+//        '05c15ee9510da7fd6bf6136f436500c0' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/conjugate.php',
-+//        'd3208dfbce2505e370788f9f22f6785f' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cos.php',
-+//        '141cf1fb3a3046f8b64534b0ebab33ca' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cosh.php',
-+//        'be660df75fd0dbe7fa7c03b7434b3294' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/cot.php',
-+//        '01e31ea298a51bc9e91517e3ce6b9e76' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/coth.php',
-+//        '803ddd97f7b1da68982a7b087c3476f6' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csc.php',
-+//        '3001cdfd101ec3c32da34ee43c2e149b' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/csch.php',
-+//        '77b2d7629ef2a93fabb8c56754a91051' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/exp.php',
-+//        '4a4471296dec796c21d4f4b6552396a9' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/inverse.php',
-+//        'c3e9897e1744b88deb56fcdc39d34d85' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/ln.php',
-+//        'a83cacf2de942cff288de15a83afd26d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log2.php',
-+//        '6a861dacc9ee2f3061241d4c7772fa21' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/log10.php',
-+//        '4d2522d968c8ba78d6c13548a1b4200e' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/negative.php',
-+//        'fd587ca933fc0447fa5ab4843bdd97f7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/pow.php',
-+//        '383ef01c62028fc78cd4388082fce3c2' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/rho.php',
-+//        '150fbd1b95029dc47292da97ecab9375' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sec.php',
-+//        '549abd9bae174286d660bdaa07407c68' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sech.php',
-+//        '6bfbf5eaea6b17a0ed85cb21ba80370c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sin.php',
-+//        '22efe13f1a497b8e199540ae2d9dc59c' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sinh.php',
-+//        'e90135ab8e787795a509ed7147de207d' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/sqrt.php',
-+//        'bb0a7923ffc6a90919cd64ec54ff06bc' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tan.php',
-+//        '2d302f32ce0fd4e433dd91c5bb404a28' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/tanh.php',
-+//        '24dd4658a952171a4ee79218c4f9fd06' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/theta.php',
-+//        'e49b7876281d6f5bc39536dde96d1f4a' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/add.php',
-+//        '47596e02b43cd6da7700134fd08f88cf' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/subtract.php',
-+//        '883af48563631547925fa4c3b48ead07' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/multiply.php',
-+//        'f190e3308e6ca23234a2875edc985c03' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideby.php',
-+//        'ac9e33ce6841aa5bf5d16d465a2f03a7' => __DIR__ . '/..' . '/markbaker/complex/classes/src/operations/divideinto.php',
-+//        '3af723442581d6c310bf44543f9f5c60' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/adjoint.php',
-+//        'd803221834c8b57fec95debb5406a797' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/antidiagonal.php',
-+//        '4714cafbd3be4c72c274a25eae9396bb' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/cofactors.php',
-+//        '89719dc7c77436609d1c1c31f0797b8f' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/determinant.php',
-+//        'c28af79ec7730859d83f2d4310b8dd0b' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/diagonal.php',
-+//        'c5d82bf1ac485e445f911e55789ab4e6' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/identity.php',
-+//        '0d2d594de24a247f7a33499e933aa21e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/inverse.php',
-+//        'f37c25880804a014ef40c8bffbab1b10' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/minors.php',
-+//        'd6e4e42171df0dbea253b3067fefda38' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/trace.php',
-+//        '2c9b19fa954fd3e6fcc7e7a1383caddd' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Functions/transpose.php',
-+//        '0a538fc9b897450ec362480ebbebe94f' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/add.php',
-+//        'f0843f7f4089ec2343c7445544356385' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/directsum.php',
-+//        'ad3e8c29aa16d134661a414265677b61' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/subtract.php',
-+//        '8d37dad4703fab45bfec9dd0bbf3278e' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/multiply.php',
-+//        '4888a6f58c08148ebe17682f9ce9b2a8' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideby.php',
-+//        'eef6fa3879d3efa347cd24d5eb348f85' => __DIR__ . '/..' . '/markbaker/matrix/classes/src/Operations/divideinto.php',
-         '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
--        'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-         '488987c28e9b5e95a1ce6b6bcb94606c' => __DIR__ . '/..' . '/karsonzhang/fastadmin-addons/src/common.php',
--        'f0e7e63bbb278a92db02393536748c5f' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Support/Helpers.php',
--        '6747f579ad6817f318cc3a7e7a0abb93' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Helpers.php',
-+//        'f0e7e63bbb278a92db02393536748c5f' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Support/Helpers.php',
-+//        '6747f579ad6817f318cc3a7e7a0abb93' => __DIR__ . '/..' . '/overtrue/wechat/src/Kernel/Helpers.php',
-         '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
-         'ddc3cd2a04224f9638c5d0de6a69c7e3' => __DIR__ . '/..' . '/topthink/think-migration/src/config.php',
-         'cc56288302d9df745d97c934d6a6e5f0' => __DIR__ . '/..' . '/topthink/think-queue/src/common.php',
-     );
- 
-     public static $prefixLengthsPsr4 = array (
--        't' => 
-+        't' =>
-         array (
-             'think\\migration\\' => 16,
-             'think\\helper\\' => 13,
-@@ -97,15 +97,15 @@
-             'think\\captcha\\' => 14,
-             'think\\' => 6,
-         ),
--        'p' => 
-+        'p' =>
-         array (
-             'phpseclib3\\' => 11,
-         ),
--        'T' => 
-+        'T' =>
-         array (
-             'Tx\\' => 3,
-         ),
--        'S' => 
-+        'S' =>
-         array (
-             'Symfony\\Polyfill\\Php80\\' => 23,
-             'Symfony\\Polyfill\\Php73\\' => 23,
-@@ -125,7 +125,7 @@
-             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
-             'Stripe\\' => 7,
-         ),
--        'P' => 
-+        'P' =>
-         array (
-             'Psr\\SimpleCache\\' => 16,
-             'Psr\\Log\\' => 8,
-@@ -137,18 +137,18 @@
-             'Phinx\\' => 6,
-             'ParagonIE\\ConstantTime\\' => 23,
-         ),
--        'O' => 
-+        'O' =>
-         array (
-             'Overtrue\\Socialite\\' => 19,
-             'Overtrue\\Pinyin\\' => 16,
-         ),
--        'M' => 
-+        'M' =>
-         array (
-             'Monolog\\' => 8,
-             'Matrix\\' => 7,
-             'MailchimpMarketing\\' => 19,
-         ),
--        'G' => 
-+        'G' =>
-         array (
-             'GuzzleHttp\\Psr7\\' => 16,
-             'GuzzleHttp\\Promise\\' => 19,
-@@ -157,17 +157,17 @@
-             'Google\\Auth\\' => 12,
-             'Google\\' => 7,
-         ),
--        'F' => 
-+        'F' =>
-         array (
-             'Firebase\\JWT\\' => 13,
-             'FacebookAds\\' => 12,
-         ),
--        'E' => 
-+        'E' =>
-         array (
-             'EasyWeChat\\' => 11,
-             'EasyWeChatComposer\\' => 19,
-         ),
--        'C' => 
-+        'C' =>
-         array (
-             'Complex\\' => 8,
-             'Checkout\\' => 9,
-@@ -175,214 +175,214 @@
-     );
- 
-     public static $prefixDirsPsr4 = array (
--        'think\\migration\\' => 
-+        'think\\migration\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/topthink/think-migration/src',
-         ),
--        'think\\helper\\' => 
-+        'think\\helper\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/topthink/think-helper/src',
-         ),
--        'think\\composer\\' => 
-+        'think\\composer\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/topthink/think-installer/src',
-         ),
--        'think\\captcha\\' => 
-+        'think\\captcha\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/topthink/think-captcha/src',
-         ),
--        'think\\' => 
-+        'think\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/karsonzhang/fastadmin-addons/src',
-             1 => __DIR__ . '/../..' . '/thinkphp/library/think',
-             2 => __DIR__ . '/..' . '/topthink/think-queue/src',
-         ),
--        'phpseclib3\\' => 
-+        'phpseclib3\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
-         ),
--        'Tx\\' => 
-+        'Tx\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/txthinking/mailer/src',
-         ),
--        'Symfony\\Polyfill\\Php80\\' => 
-+        'Symfony\\Polyfill\\Php80\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
-         ),
--        'Symfony\\Polyfill\\Php73\\' => 
-+        'Symfony\\Polyfill\\Php73\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
-         ),
--        'Symfony\\Polyfill\\Php72\\' => 
-+        'Symfony\\Polyfill\\Php72\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
-         ),
--        'Symfony\\Polyfill\\Mbstring\\' => 
-+        'Symfony\\Polyfill\\Mbstring\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
-         ),
--        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
-+        'Symfony\\Polyfill\\Intl\\Normalizer\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
-         ),
--        'Symfony\\Polyfill\\Intl\\Idn\\' => 
-+        'Symfony\\Polyfill\\Intl\\Idn\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
-         ),
--        'Symfony\\Contracts\\Service\\' => 
-+        'Symfony\\Contracts\\Service\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/service-contracts',
-         ),
--        'Symfony\\Contracts\\EventDispatcher\\' => 
-+        'Symfony\\Contracts\\EventDispatcher\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
-         ),
--        'Symfony\\Contracts\\Cache\\' => 
-+        'Symfony\\Contracts\\Cache\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/cache-contracts',
-         ),
--        'Symfony\\Component\\VarExporter\\' => 
-+        'Symfony\\Component\\VarExporter\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/var-exporter',
-         ),
--        'Symfony\\Component\\Mime\\' => 
-+        'Symfony\\Component\\Mime\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/mime',
-         ),
--        'Symfony\\Component\\HttpFoundation\\' => 
-+        'Symfony\\Component\\HttpFoundation\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/http-foundation',
-         ),
--        'Symfony\\Component\\Finder\\' => 
-+        'Symfony\\Component\\Finder\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/finder',
-         ),
--        'Symfony\\Component\\EventDispatcher\\' => 
-+        'Symfony\\Component\\EventDispatcher\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
-         ),
--        'Symfony\\Component\\Cache\\' => 
-+        'Symfony\\Component\\Cache\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/cache',
-         ),
--        'Symfony\\Bridge\\PsrHttpMessage\\' => 
-+        'Symfony\\Bridge\\PsrHttpMessage\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/symfony/psr-http-message-bridge',
-         ),
--        'Stripe\\' => 
-+        'Stripe\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
-         ),
--        'Psr\\SimpleCache\\' => 
-+        'Psr\\SimpleCache\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
-         ),
--        'Psr\\Log\\' => 
-+        'Psr\\Log\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-         ),
--        'Psr\\Http\\Message\\' => 
-+        'Psr\\Http\\Message\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/psr/http-message/src',
-         ),
--        'Psr\\Container\\' => 
-+        'Psr\\Container\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/psr/container/src',
-         ),
--        'Psr\\Cache\\' => 
-+        'Psr\\Cache\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/psr/cache/src',
-         ),
--        'PhpZip\\' => 
-+        'PhpZip\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/nelexa/zip/src',
-         ),
--        'PhpOffice\\PhpSpreadsheet\\' => 
-+        'PhpOffice\\PhpSpreadsheet\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
-         ),
--        'Phinx\\' => 
-+        'Phinx\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/topthink/think-migration/phinx/src/Phinx',
-         ),
--        'ParagonIE\\ConstantTime\\' => 
-+        'ParagonIE\\ConstantTime\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
-         ),
--        'Overtrue\\Socialite\\' => 
-+        'Overtrue\\Socialite\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/overtrue/socialite/src',
-         ),
--        'Overtrue\\Pinyin\\' => 
-+        'Overtrue\\Pinyin\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/overtrue/pinyin/src',
-         ),
--        'Monolog\\' => 
-+        'Monolog\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
-         ),
--        'Matrix\\' => 
-+        'Matrix\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
-         ),
--        'MailchimpMarketing\\' => 
-+        'MailchimpMarketing\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/mailchimp/marketing/lib',
-         ),
--        'GuzzleHttp\\Psr7\\' => 
-+        'GuzzleHttp\\Psr7\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
-         ),
--        'GuzzleHttp\\Promise\\' => 
-+        'GuzzleHttp\\Promise\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
-         ),
--        'GuzzleHttp\\' => 
-+        'GuzzleHttp\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-         ),
--        'Google\\Service\\' => 
-+        'Google\\Service\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/google/apiclient-services/src',
-         ),
--        'Google\\Auth\\' => 
-+        'Google\\Auth\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/google/auth/src',
-         ),
--        'Google\\' => 
-+        'Google\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/google/apiclient/src',
-         ),
--        'Firebase\\JWT\\' => 
-+        'Firebase\\JWT\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
-         ),
--        'FacebookAds\\' => 
-+        'FacebookAds\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/facebook/php-business-sdk/src/FacebookAds',
-         ),
--        'EasyWeChat\\' => 
-+        'EasyWeChat\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/overtrue/wechat/src',
-         ),
--        'EasyWeChatComposer\\' => 
-+        'EasyWeChatComposer\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/easywechat-composer/easywechat-composer/src',
-         ),
--        'Complex\\' => 
-+        'Complex\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
-         ),
--        'Checkout\\' => 
-+        'Checkout\\' =>
-         array (
-             0 => __DIR__ . '/..' . '/checkout/checkout-sdk-php/lib/Checkout',
-         ),
-     );
- 
-     public static $prefixesPsr0 = array (
--        'P' => 
-+        'P' =>
-         array (
--            'Pimple' => 
-+            'Pimple' =>
-             array (
-                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
-             ),
-@@ -392,27 +392,27 @@
-     public static $classMap = array (
-         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
-         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
--        'Google_AccessToken_Revoke' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_AccessToken_Verify' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_AuthHandler_AuthHandlerFactory' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_AuthHandler_Guzzle5AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_AuthHandler_Guzzle6AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_AuthHandler_Guzzle7AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Client' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Collection' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Http_Batch' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Http_MediaFileUpload' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Http_REST' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Model' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Service' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Service_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Service_Resource' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Task_Composer' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Task_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Task_Retryable' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Task_Runner' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
--        'Google_Utils_UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_AccessToken_Revoke' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_AccessToken_Verify' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_AuthHandler_AuthHandlerFactory' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_AuthHandler_Guzzle5AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_AuthHandler_Guzzle6AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_AuthHandler_Guzzle7AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Client' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Collection' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Http_Batch' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Http_MediaFileUpload' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Http_REST' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Model' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Service' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Service_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Service_Resource' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Task_Composer' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Task_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Task_Retryable' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Task_Runner' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-+//        'Google_Utils_UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-         'IP2Location\\Database' => __DIR__ . '/..' . '/ip2location/ip2location-php/IP2Location.php',
-         'IP2Location\\IpTools' => __DIR__ . '/..' . '/ip2location/ip2location-php/IP2Location.php',
-         'IP2Location\\WebService' => __DIR__ . '/..' . '/ip2location/ip2location-php/IP2Location.php',
-Index: extend/fast/Tree.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/extend/fast/Tree.php b/extend/fast/Tree.php
---- a/extend/fast/Tree.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/extend/fast/Tree.php	(date 1676537294336)
-@@ -343,6 +343,10 @@
-                     '@class'     => ($selected ? ' active' : '') . ($disabled ? ' disabled' : '') . ($childdata ? ' treeview' : ''),
-                 );
- 
-+                //  lennon todo fast test language
-+                $value['@addtabs'] .= '&lang=' . cookie('think_var');
-+
-+
-                 if (!empty($brinset)){
-                     if (in_array($id,$brinset)){
-                         $str .= '<li><br/></li>';
-Index: config/config.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/config/config.php b/config/config.php
---- a/config/config.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/config/config.php	(date 1676537294394)
-@@ -168,8 +168,8 @@
-         'type'  => 'File',
-         // 日志保存目录
-         'path'  => LOG_PATH,
--        // 日志记录级别
--        'level' => [],
-+        // lennon todo 日志单独记录
-+        'apart_level'   =>  ['log', 'error', 'info', 'sql', 'notice', 'alert', 'debug'],
-     ],
-     // +----------------------------------------------------------------------
-     // | Trace设置 开启 app_trace 后 有效
-@@ -187,7 +187,7 @@
-         // 缓存保存目录
-         'path'   => CACHE_PATH,
-         // 缓存前缀
--        'prefix' => Env::get('app.docker_name', 'www_shoppaas_com'). ":",
-+        'prefix' => Env::get('app.docker_name', 'shoppaas_1648460923401_web'). ":",
-         // 缓存有效期 0表示永久缓存
-         'expire' => 0,
-         // 服务器地址
-@@ -205,9 +205,10 @@
-         // SESSION_ID的提交变量,解决flash上传跨域
-         'var_session_id' => '',
-         // SESSION 前缀
--        'session_name'         => Env::get('app.docker_name', 'www_shoppaas_com'). ":",
-+        'session_name'         => Env::get('app.docker_name', 'shoppaas_1648460923401_web'). ":",
-         // 驱动方式 支持redis memcache memcached
-         'type'           => 'redis',
-+        'prefix' => 'mczhan',
- 
-         // 服务器地址
-         'host'       => Env::get('redis.host', '127.0.0.1'),
-@@ -271,7 +272,7 @@
-         // 驱动方式
-         'type'     => 'Mysql',
-         // 缓存前缀
--        'key'      => Env::get('app.admin_web_token', 'F5cJ8NzO0PxMEumTfsXRdaw6hGYiW7g3'),
-+        'key'      => Env::get('app.admin_web_token', 'NVLeyAa6cRpdrujFvsY8zHZi4nX9lBog'),
-         // 加密方式
-         'hashalgo' => 'ripemd160',
-         // 缓存有效期 0表示永久缓存
-@@ -319,7 +320,7 @@
- 
-     'session_name' => 'MCSESSID',
-     'shoppaas' => [
--        'docker_name'           => Env::get('app.docker_name', 'www_shoppaas_com'),
-+        'docker_name'           => Env::get('app.docker_name', 'shoppaas_1648460923401_web'),
-         'api_url'               => Env::get('app.api_url', 'http://admin_api'),
-         'home_url'              => Env::get('app.home_url', 'http://admin_home'),
- 
-Index: application/index/controller/Product.php
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/application/index/controller/Product.php b/application/index/controller/Product.php
---- a/application/index/controller/Product.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/application/index/controller/Product.php	(date 1676537294406)
-@@ -34,6 +34,12 @@
- 
-         $product = \app\common\model\Product::getProductDetailByPath($path);
- 
-+
-+        // lennon todo fast test
-+        if ($this->request->param('id')) {
-+            $product = \app\common\model\Product::getProductDetailById($this->request->param('id'));
-+        }
-+
-         if (!$product || $product->status === 'down') {
-             // $this->view->assign('msg', '商品不存在或已下架');
-             $product = \app\common\model\Product::getProductDetailByPath(urlencode($path));
 Index: thinkphp/library/think/Request.php
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/thinkphp/library/think/Request.php b/thinkphp/library/think/Request.php
---- a/thinkphp/library/think/Request.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/library/think/Request.php	(date 1676537294420)
+--- a/thinkphp/library/think/Request.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/library/think/Request.php	(date 1679625834761)
 @@ -959,7 +959,7 @@
       * @access public
       * @param string|array $name    header名称
@@ -2687,14 +2395,69 @@ diff --git a/thinkphp/library/think/Request.php b/thinkphp/library/think/Request
       */
      public function header($name = '', $default = null)
      {
+Index: config/install.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/install.lock b/config/install.lock
+new file mode 100644
+--- /dev/null	(date 1679625834216)
++++ b/config/install.lock	(date 1679625834216)
+@@ -0,0 +1,1 @@
++1
+Index: .env
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.env b/.env
+new file mode 100644
+--- /dev/null	(date 1679625834232)
++++ b/.env	(date 1679625834232)
+@@ -0,0 +1,34 @@
++[app]
++debug = false
++debug = true
++trace = true
++trace = false
++app_env = prod
++app_env = local
++admin_web_token = NVLeyAa6cRpdrujFvsY8zHZi4nX9lBog
++docker_name = shoppaas_1648460923401_web
++api_url = http://admin.maoshishop.com
++home_url = http://192.168.1.222:9060
++
++
++[database]
++hostname = 192.168.1.222
++database = maoshishop
++username = root
++password = root
++hostport = 3306
++prefix =
++debug = false
++debug = true
++
++[redis]
++host = 127.0.0.1
++port = 6379
++password =
++
++[payment]
++environment = sandbox
++
++[error_report]
++push_url_order      = IGNORE
++push_url_exception  = IGNORE
 Index: thinkphp/helper.php
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/thinkphp/helper.php b/thinkphp/helper.php
---- a/thinkphp/helper.php	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/helper.php	(date 1676537294442)
+--- a/thinkphp/helper.php	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/helper.php	(date 1679625834810)
 @@ -574,7 +574,7 @@
  if (!function_exists('collection')) {
      /**
@@ -2710,8 +2473,8 @@ Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
 <+>UTF-8
 ===================================================================
 diff --git a/thinkphp/tpl/think_exception.tpl b/thinkphp/tpl/think_exception.tpl
---- a/thinkphp/tpl/think_exception.tpl	(revision 48c917a6ff6be960c252e0d4be551986635ed874)
-+++ b/thinkphp/tpl/think_exception.tpl	(date 1676537294432)
+--- a/thinkphp/tpl/think_exception.tpl	(revision e30dfd7e80af67b7e6d796cd85f699d45fc8dc05)
++++ b/thinkphp/tpl/think_exception.tpl	(date 1679625834774)
 @@ -18,7 +18,11 @@
      if(!function_exists('parse_file')){
          function parse_file($file, $line)
@@ -2858,3 +2621,216 @@ diff --git a/thinkphp/tpl/think_exception.tpl b/thinkphp/tpl/think_exception.tpl
  
              // 短路径和长路径变换
              for(var i = 0; i < files.length; i++){
+Index: application/admin/command/VersionNew.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/application/admin/command/VersionNew.php b/application/admin/command/VersionNew.php
+new file mode 100644
+--- /dev/null	(date 1679625834246)
++++ b/application/admin/command/VersionNew.php	(date 1679625834246)
+@@ -0,0 +1,101 @@
++<?php
++
++namespace app\admin\command;
++
++use think\console\Command;
++use think\console\Input;
++use think\console\Output;
++use think\Request;
++use think\View;
++
++/**
++ * 快捷更新版本号
++ * 保留旧的
++ * Class Version
++ * @package app\admin\command
++ */
++class VersionNew extends Command
++{
++    protected $model = null;
++    /**
++     * @var View 视图类实例
++     */
++    protected $view;
++
++    /**
++     * @var Request Request 实例
++     */
++    protected $request;
++
++    protected function configure()
++    {
++        $this
++            ->setName('new-version')
++            ->setDescription('new version config');
++    }
++
++    /**
++     * 命令行安装
++     */
++    protected function execute(Input $input, Output $output): void
++    {
++        $file_dir = APP_PATH . '../database/migrations/';
++        $file_name_old = '';
++        foreach (scandir($file_dir, SCANDIR_SORT_DESCENDING) as $value) {
++            if (!str_contains($value, '_update_config_version')) {
++                continue;
++            }
++
++            if (empty($file_name_old)) {
++                $file_name_old = $value;
++            }
++        }
++
++        if (empty($file_name_old)) {
++            $output->error('empty $file_name_old');
++            return;
++        }
++
++        $file_content = file_get_contents($file_dir . $file_name_old);
++        preg_match('/\d+.\d+.\d+/', $file_content, $matches);
++
++        $version_old = '';
++        if (!empty($matches[0])) {
++            $version_old = $matches[0];
++        }
++
++        // version increase
++        $version_array = explode('.', $version_old);
++        $version_z = array_pop($version_array);
++        $version_z++;
++        $version_array[] = $version_z;
++        $version_new = implode('.', $version_array);
++        $file_content = str_replace($version_old, $version_new, $file_content);
++
++        // class name
++        $class_old = "class UpdateConfigVersion extends";
++        $class_new = "class UpdateConfigVersion{$version_z} extends";
++        preg_match('/class UpdateConfigVersion\d+ extends/', $file_content, $matches);
++        if (!empty($matches[0])) {
++            $class_old = $matches[0];
++        }
++        $file_content = str_replace($class_old, $class_new, $file_content);
++
++        // save
++        $file_name_new = date('YmdHis') . "_update_config_version{$version_z}.php";
++        $flag = file_put_contents($file_dir . $file_name_new, $file_content);
++        if (!$flag) {
++            $output->error('error file_put_contents');
++            return;
++        }
++
++        $shell = "git add -A  --ignore-errors -- {$file_dir}{$file_name_new} 2>&1";
++        exec($shell, $out);
++        if (!empty($out[0])) {
++            $output->error($out[0]);
++            return;
++        }
++
++        $output->info('Update version config success');
++    }
++}
+Index: application/admin/command/InstallDemoData.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/application/admin/command/InstallDemoData.php b/application/admin/command/InstallDemoData.php
+new file mode 100644
+--- /dev/null	(date 1679625834253)
++++ b/application/admin/command/InstallDemoData.php	(date 1679625834253)
+@@ -0,0 +1,92 @@
++<?php
++
++namespace app\admin\command;
++
++use think\Config;
++use think\console\Command;
++use think\console\Input;
++use think\console\Output;
++use think\Db;
++
++/**
++ * Class InstallDemoData
++ * @package app\admin\command
++ * @example php think install-demo-data
++ */
++class InstallDemoData extends Command
++{
++    protected $model = null;
++    /**
++     * @var \think\View 视图类实例
++     */
++    protected $view;
++
++    /**
++     * @var \think\Request Request 实例
++     */
++    protected $request;
++
++    protected function configure()
++    {
++        $this
++            ->setName('install-demo-data')
++            ->setDescription('install demo data');
++    }
++
++    /**
++     * 命令行安装
++     */
++    protected function execute(Input $input, Output $output)
++    {
++        $config = Config::get('database');
++
++        $instance = Db::connect($config);
++        $instance->execute("DROP SCHEMA IF EXISTS`{$config['database']}`;");
++
++
++        $shell = 'rm -rf ./public/uploads/lang/';
++        exec($shell, $out);
++        $output->info(implode(PHP_EOL, $out));
++        $output->info(PHP_EOL);
++
++
++        $shell = 'php think install -u "admin" -p "Shop@8888" -e "shop@store.com" -t "NVLeyAa6cRpdrujFvsY8zHZi4nX9lBog" -s "Test Store" -d "shoppaas_1648460923401_web" --force=true';
++        exec($shell, $out);
++        $output->info(implode(PHP_EOL, $out));
++        $output->info(PHP_EOL);
++
++
++        $shell = 'php think migrate:run';
++        exec($shell, $out);
++        $output->info(implode(PHP_EOL, $out));
++        $output->info(PHP_EOL);
++
++
++        define('INSTALL_PATH', APP_PATH . 'admin' . DS . 'command' . DS . 'Install' . DS);
++        $sql = file_get_contents(INSTALL_PATH . 'init-demo-data.sql');
++        $sql = str_replace("`fa_", "`{$config['prefix']}", $sql);
++        // 调用原生PDO对象进行批量查询
++        $instance->getPdo()->exec($sql);
++
++
++        $this->curlApi();
++
++
++        $shell = 'php think clean';
++        exec($shell, $out);
++        $output->info(implode(PHP_EOL, $out));
++        $output->info(PHP_EOL);
++
++
++        $output->info('---------- no shit ----------');
++    }
++
++    private function curlApi()
++    {
++        $shell = 'sh ./deployments/dev/create-themes.sh';
++        exec($shell, $out);
++        if (!empty($out[0])) {
++            echo $out[0];
++        }
++    }
++}
