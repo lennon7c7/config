@@ -49,6 +49,7 @@ if [[ "$*" != *"no-git"* ]]; then
   echo ""
   echo "step2. git"
   if [ ! -d "$GitPath" ]; then
+    mkdir -p "$GitPath"
     if [[ "$GitClone" == '' ]]; then
       GitClone=$(git config --get remote.origin.url)
     fi
