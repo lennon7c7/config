@@ -58,7 +58,7 @@ foreach ($output as $filename) {
  */
 function isMatchFileExt($filename)
 {
-  $keep_needle = ['mp4', 'rmvb', 'avi', 'mkv'];
+  $keep_needle = ['mp4', 'rmvb', 'avi', 'mkv', 'ogv'];
   foreach ($keep_needle as $ext) {
     $filename_ext = pathinfo($filename, PATHINFO_EXTENSION);
     if ($filename_ext === $ext) {
