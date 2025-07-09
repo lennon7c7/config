@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\image\shell\ExifTool]
+@="ExifTool"
+"Icon"="D:\\ffmpeg\\bin\\exiftool.exe"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\image\shell\ExifTool\command]
+@="\"D:\\ffmpeg\\bin\\exiftool.bat\" \"%1\""
