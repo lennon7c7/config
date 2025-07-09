@@ -1,0 +1,41 @@
+Windows Registry Editor Version 5.00
+
+; 注册 mp4
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.mp4\shell\cut-split-video]
+@="cut-split-video"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.mp4\shell\cut-split-video\command]
+@="\"D:\\Project\\lennon7c7\\github-config\\Others\\ffmpeg\\script\\cut-split-video.bat\" \"%1\""
+
+; 注册 rmvb
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.rmvb\shell\cut-split-video]
+@="cut-split-video"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.rmvb\shell\cut-split-video\command]
+@="\"D:\\Project\\lennon7c7\\github-config\\Others\\ffmpeg\\script\\cut-split-video.bat\" \"%1\""
+
+; 注册 avi
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.avi\shell\cut-split-video]
+@="cut-split-video"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.avi\shell\cut-split-video\command]
+@="\"D:\\Project\\lennon7c7\\github-config\\Others\\ffmpeg\\script\\cut-split-video.bat\" \"%1\""
+
+; 注册 mkv
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.mkv\shell\cut-split-video]
+@="cut-split-video"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.mkv\shell\cut-split-video\command]
+@="\"D:\\Project\\lennon7c7\\github-config\\Others\\ffmpeg\\script\\cut-split-video.bat\" \"%1\""
+
+; 注册 ogv
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.ogv\shell\cut-split-video]
+@="cut-split-video"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\SystemFileAssociations\.ogv\shell\cut-split-video\command]
+@="\"D:\\Project\\lennon7c7\\github-config\\Others\\ffmpeg\\script\\cut-split-video.bat\" \"%1\""
